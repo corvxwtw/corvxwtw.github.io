@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles and animations */
+
         body {
             font-family: 'Poppins', sans-serif;
-            /* NIGHT SKY ANIMATION: Dark gradient with slow shift */
+
             background: linear-gradient(135deg, #0A0A1F, #000000, #1A1240); 
             background-size: 300% 300%; 
             animation: gradientMove 30s ease infinite alternate; /* Animates the background position */
@@ -21,7 +21,7 @@
             transition: background-color 0.8s ease;
         }
         
-        /* UPDATED: Removed text-transform: uppercase; to allow lowercase text */
+
         .coolvetica-style {
             font-family: 'Poppins', sans-serif; 
             letter-spacing: 2px;
@@ -38,7 +38,7 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                /* Reduced translation distance for a subtler, more fluent animation */
+
                 transform: translateY(15px); 
             }
             to {
@@ -52,7 +52,7 @@
             100% { background-position: 100% 50%; }
         }
 
-        /* Subtle floating animation for constant, ambient movement */
+
         @keyframes subtleFloat {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-3px); }
@@ -61,7 +61,7 @@
 
         @keyframes pulseGlow {
             0%, 100% {
-                /* White glow maintained */
+
                 box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.2), 0 0 5px 2px rgba(255, 255, 255, 0.4);
             }
             50% {
@@ -74,34 +74,31 @@
             to { background-position: -200% center; }
         }
 
-        /* Animation utility classes */
         .animate-fade-in {
             animation: fadeIn 1.5s ease-in-out forwards;
         }
         
-        /* Staggered animation delays (Adjusted for new social links) */
+
         .animate-fade-in-up {
-            opacity: 0; /* Start hidden */
-            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* Using a smoother ease-out curve */
+            opacity: 0; 
+            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
         }
         .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; } /* New delay for the name 'Ilyas' */
+        .delay-300 { animation-delay: 0.3s; } 
         .delay-400 { animation-delay: 0.4s; }
         .delay-600 { animation-delay: 0.6s; }
-        .delay-800 { animation-delay: 0.8s; } /* New Social Links */
-        .delay-1000 { animation-delay: 1.0s; } /* New Section Title */
-        .delay-1200 { animation-delay: 1.2s; } /* Card 1 */
-        .delay-1400 { animation-delay: 1.4s; } /* Card 2 */
-        .delay-1600 { animation-delay: 1.6s; } /* Card 3 */
-        .delay-1800 { animation-delay: 1.8s; } /* Card 4 */
-        .delay-2000 { animation-delay: 2.0s; } /* Footer */
+        .delay-800 { animation-delay: 0.8s; } 
+        .delay-1000 { animation-delay: 1.0s; }
+        .delay-1200 { animation-delay: 1.2s; } 
+        .delay-1400 { animation-delay: 1.4s; }
+        .delay-1600 { animation-delay: 1.6s; }
+        .delay-1800 { animation-delay: 1.8s; } 
+        .delay-2000 { animation-delay: 2.0s; } 
 
 
-        /* FIX: Set opacity to 1 here to ensure the profile picture is visible immediately, 
-           overriding any potential animation failure that leaves it at opacity: 0. 
-           The animation for 'fadeInUp' still handles the translateY movement. */
+        /* femboy porn */
         .profile-pic {
-            opacity: 1; /* Ensures visibility */
+            opacity: 1; 
             animation: pulseGlow 4s infinite ease-in-out;
         }
 
@@ -115,59 +112,57 @@
             animation: backgroundShine 5s linear infinite;
         }
         
-        /* Applied subtleFloat animation to the main content wrapper */
+
         .main-content-wrapper {
              animation: subtleFloat 10s ease-in-out infinite;
         }
 
         .card {
-            /* Modified to use flex-col and justify-between for content separation */
-            /* Current Opacity: 0.2 for maximum transparency and blur effect */
+
             background-color: rgba(0, 0, 0, 0.2); 
             border: 1px solid rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            /* Enhanced transition properties for a much smoother hover */
+
             transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.4s ease, box-shadow 0.4s ease; 
-            /* Added position: relative for absolute positioning of the text box */
+
             position: relative;
-            overflow: hidden; /* Ensures text box doesn't bleed out */
-            padding: 1.5rem; /* Base padding */
+            overflow: hidden;
+            padding: 1.5rem; 
         }
 
         .card:hover {
-            /* Smoother hover transformation */
+
             transform: translateY(-10px) scale(1.05) rotateZ(0.5deg); 
             border-color: rgba(255, 255, 255, 0.7);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
-        
-        /* Style for the text box inside the card */
+
         .card-textbox {
-            /* Positioning at the bottom of the card */
+
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            /* Semi-transparent background with blur for a glass effect */
+     
             background-color: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
             -webkit-backdrop-filter: blur(5px);
             padding: 0.75rem; /* p-3 */
-            /* Default transform: translateY(100%) hides the textbox */
+         
             transform: translateY(100%);
             opacity: 0;
             transition: transform 0.4s ease-out, opacity 0.4s ease-out;
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Show the text box on card hover */
+ 
         .card:hover .card-textbox {
             transform: translateY(0);
             opacity: 1;
         }
 
-        /* Floating particles background */
+
         #particles-js {
             position: absolute;
             width: 100%;
@@ -177,7 +172,7 @@
             z-index: 0;
         }
         
-        /* Footer background for visual separation */
+      
         .footer-bg {
             background-color: rgba(0, 0, 0, 0.2);
             width: 100%;
@@ -197,41 +192,41 @@
                 class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover z-30 profile-pic animate-fade-in-up delay-200"
                 onerror="this.onerror=null; this.src='https://placehold.co/160x160/4c1d95/ffffff?text=KEYZZ';"
             >
-            <!-- UPDATED: Added mb-0 to h2 to remove bottom margin -->
+          
             <h2 class="text-4xl mt-1 mb-0 text-gray-100 coolvetica-style animate-fade-in-up delay-300">
                 ghxst
             </h2>
            
             </h1>
-            <!-- UPDATED: Changed mt-2 to mt-0 to remove top margin from paragraph -->
+        
             <p class="text-gray-400 mt-0 text-lg max-w-md animate-fade-in-up delay-600">
                 I went kanye west.
             </p>
 
-            <!-- UPDATED: Changed space-x-6 to space-x-4 to move logos closer -->
+            
             <div class="flex space-x-4 mt-4 animate-fade-in-up delay-800">
                 
-                <!-- UPDATED: Changed h-8 w-8 to h-10 w-10 for larger logo -->
+          
                 <a href="https://www.twitch.tv/ghxstkbm" class="transition-colors duration-300 transform hover:scale-125" aria-label="Twitch Link">
                     <img src="https://i.ibb.co/pvW96DYx/Twitch.png" alt="Twitch Icon" class="h-10 w-10 filter brightness-125">
                 </a>
                 
-                <!-- UPDATED: Changed h-8 w-8 to h-10 w-10 for larger logo -->
+               
                 <a href="https://x.com/ghxstkbm" class="transition-colors duration-300 transform hover:scale-125" aria-label="X (Twitter) Link">
                     <img src="https://i.ibb.co/vvqQLp21/X.png" alt="X (Twitter) Icon" class="h-10 w-10 filter brightness-125">
                 </a>
                 
-                <!-- UPDATED: Changed h-8 w-8 to h-10 w-10 for larger logo -->
+              
                 <a href="https://www.youtube.com/@ghxstkbm" class="transition-colors duration-300 transform hover:scale-125" aria-label="YouTube Link">
                     <img src="https://i.ibb.co/KzSr55sD/youtube.png" alt="YouTube Icon" class="h-10 w-10 filter brightness-125">
                 </a>
             </div>
             </header>
 
-        <!-- The main content area starts here. mt-8 controls the space below the social icons. -->
+       
         <main class="w-full max-w-4xl mt-8">
             <main class="w-full max-w-4xl mt-8">
-            <h2 class="text-2xl font-semibold text-center text-gray-300 animate-fade-in-up delay-1000">MY HOBBIES</h2>
+            <h2 class="text-2xl font-semibold text-center text-gray-300 animate-fade-in-up delay-1000">My Hobbies</h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mt-6">
                 
@@ -261,7 +256,7 @@
                         <span class="mt-4 font-semibold block text-center">Football</span>
                     </div>
                     <div class="card-textbox">
-                        <p class="text-xs text-gray-200">Huge fan of the NFL and I've been watching and playing since 6 years old.</p>
+                        <p class="text-xs text-gray-200">Huge fan of the NFL, I've been watching and playing since 6 years old.</p>
                     </div>
                 </div>
 
@@ -274,7 +269,7 @@
                         <span class="mt-4 font-semibold block text-center">Fortnite</span>
                     </div>
                     <div class="card-textbox">
-                        <p class="text-xs text-gray-200">grinding until i cant no more!.</p>
+                        <p class="text-xs text-gray-200">Grinding until I can't no more!.</p>
                     </div>
                 </div>
                 
@@ -284,7 +279,7 @@
         
         <div class="footer-bg mt-12 animate-fade-in-up delay-2000">
             <footer class="text-center">
-                <p class="text-gray-400 text-sm">made by @keyzzilla.</p>
+                <p class="text-gray-400 text-sm">made by ai</p>
             </footer>
         </div>
     </div>
@@ -298,14 +293,14 @@
                 let particle = document.createElement('div');
                 particle.classList.add('particle');
                 
-                const size = Math.random() * 3 + 1; // Particle size between 1px and 4px
-                const x = Math.random() * 100; // Position in vw
-                const y = Math.random() * 100; // Position in vh
+                const size = Math.random() * 3 + 1; 
+                const x = Math.random() * 100; 
+                const y = Math.random() * 100; 
                 
-                // Set a fixed particle animation duration of 4.2s.
+
                 const duration = 4.2; 
                 
-                const delay = Math.random() * 10; // Animation delay up to 10s
+                const delay = Math.random() * 10; 
 
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
@@ -315,13 +310,13 @@
                 particle.style.borderRadius = '50%';
                 particle.style.left = `${x}vw`;
                 particle.style.top = `${y}vh`;
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`; /* Added 'alternate' for smoother loop */
+                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
                 
                 particlesContainer.appendChild(particle);
             }
         });
 
-        // Add keyframes for the particle animation dynamically
+     
         const styleSheet = document.createElement("style");
         styleSheet.type = "text/css";
         styleSheet.innerText = `
@@ -344,4 +339,5 @@
     </script>
 
 </body>
+
 </html>
