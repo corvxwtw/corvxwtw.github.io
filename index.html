@@ -17,7 +17,7 @@
             background: linear-gradient(135deg, #fff5f7, #fce4ec, #ffffff, #f8bbd0); 
             background-size: 300% 300%; 
             animation: gradientMove 15s ease infinite alternate;
-            color: #4a4a4a;
+            color: #000000;
             overflow-x: hidden;
             margin: 0;
         }
@@ -25,7 +25,7 @@
         .coolvetica-style {
             letter-spacing: 2px;
             font-weight: 800; 
-            color: #d81b60;
+            color: #000000;
         }
 
         @keyframes gradientMove {
@@ -50,6 +50,8 @@
         .delay-1000 { animation-delay: 1.0s; }
         .delay-1200 { animation-delay: 1.2s; } 
         .delay-1400 { animation-delay: 1.4s; }
+        .delay-1600 { animation-delay: 1.6s; }
+        .delay-1800 { animation-delay: 1.8s; }
 
         .profile-pic {
             border: 4px solid white;
@@ -70,7 +72,7 @@
             background-color: rgba(255, 255, 255, 0.6); 
             border: 1px solid rgba(216, 27, 96, 0.1);
             backdrop-filter: blur(10px);
-            color: #d81b60;
+            color: #000000;
             transition: transform 0.4s ease;
         }
         
@@ -122,7 +124,7 @@
                 class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover profile-pic animate-fade-in-up delay-200"
             >
             <h2 class="text-4xl mt-4 mb-0 coolvetica-style animate-fade-in-up delay-300">corvx</h2>
-            <p class="text-pink-600 mt-2 text-lg max-w-md animate-fade-in-up delay-600">Manifest your dreams.</p>
+            <p class="text-black mt-2 text-lg max-w-md animate-fade-in-up delay-600">Manifest your dreams.</p>
 
             <div class="flex space-x-6 mt-6 animate-fade-in-up delay-800">
                 <a href="https://www.twitch.tv/corvxwtw"><img src="https://i.ibb.co/pvW96DYx/Twitch.png" class="h-10 w-10 social-icon"></a>
@@ -132,7 +134,7 @@
         </header>
 
         <main class="w-full max-w-4xl mt-12 mb-12">
-            <h2 class="text-2xl font-semibold text-center text-pink-700 animate-fade-in-up delay-1000">My favs</h2>
+            <h2 class="text-2xl font-semibold text-center text-black animate-fade-in-up delay-1000">My favs</h2>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
                 <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
                     <span class="font-semibold block text-lg">Music</span>
@@ -140,7 +142,7 @@
                 </div>
                 <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
                     <span class="font-semibold block text-lg">Football</span>
-                    <p class="text-sm mt-2">I have been watching and playing foootbal since 6 years old.</p>
+                    <p class="text-sm mt-2">I have been watching and playing foootball since 6 years old.</p>
                 </div>
                 <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
                     <span class="font-semibold block text-lg">Fortnite</span>
@@ -150,16 +152,45 @@
 
             <div class="card w-full mt-8 p-8 rounded-2xl animate-fade-in-up delay-1400">
                 <h3 class="text-2xl font-bold mb-4">About Me</h3>
-                <p class="text-gray-700 leading-relaxed">
-                        Yo, I'm <span class="text-purple-400 font-semibold">corvx</span>. Welcome to my space. I'm a creator focused on gaming, music, and sports. 
+                <p class="text-black leading-relaxed">
+                        Yo, I'm <span class="text-black font-semibold">corvx</span>. Welcome to my space. I'm a creator focused on gaming, music, and sports. 
                         I spend most of my time grinding Fortnite and keeping up with the latest in the underground music scene. I love interacting with my fans.
-                        
-                    </p>
-                    <p>
-                        
-                        Beyond the screen, I like hanging out with family and friends. I do watch a lot of football and basketball in my free time.
-                    </p>
                 </p>
+                <p class="text-black">
+                        Beyond the screen, I like hanging out with family and friends. I do watch a lot of football and basketball in my free time.
+                </p>
+            </div>
+
+            <div class="card w-full mt-8 p-8 rounded-2xl animate-fade-in-up delay-1600">
+                <h3 class="text-2xl font-bold mb-4">How my journey started</h3>
+                <p class="text-black leading-relaxed">
+                    I started off at 10 years old. Just a normal kid playing his favorite game. Throughout my journey I have tried getting more into the comp scene and content scene. I have now been apart of many esport teams helping me throught the way of my journey.
+                </p>
+            </div>
+
+            <div class="card w-full mt-8 p-8 rounded-2xl animate-fade-in-up delay-1800">
+                <div class="flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center border-2 border-dashed border-pink-300 overflow-hidden">
+                        <img src="https://i.ibb.co/PGn20B9Q/BNTH-Chrome-Wallpaper.png" alt="Feature Image" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <h3 class="text-2xl font-bold mb-2">Beneath Reality</h3>
+                        <p class="text-black leading-relaxed">
+                            Beneath Reality has been with me for now a while. Overtime they have helped me throughtout my journey. Something I will always never forget the feeling of Beneath helping me throughout my journey.
+                        </p>
+                    </div>
+                </div>
+                <div class="flex justify-center md:justify-start space-x-6 mt-6 pt-6 border-t border-pink-100">
+                    <a href="https://www.youtube.com/@Beneathgg" class="social-icon">
+                        <img src="https://i.ibb.co/KzSr55sD/youtube.png" alt="Social" class="h-8 w-8">
+                    </a>
+                    <a href="https://x.com/BeneathHQ" class="social-icon">
+                        <img src="https://i.ibb.co/vvqQLp21/X.png" alt="Social" class="h-8 w-8">
+                    </a>
+                    <a href="https://www.twitch.tv/beneathesport" class="social-icon">
+                        <img src="https://i.ibb.co/pvW96DYx/Twitch.png" alt="Social" class="h-8 w-8">
+                    </a>
+                </div>
             </div>
         </main>
     </div>
