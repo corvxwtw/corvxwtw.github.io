@@ -1,48 +1,31 @@
-<!DOCTYPE html>
+<!DOCTYPE html><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@corvxwtw</title>
+    <meta name="referrer" content="no-referrer">
+    
+    <title>Corv's Pink Corvette.</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
     <style>
-
         body {
             font-family: 'Poppins', sans-serif;
-
-            background: linear-gradient(135deg, #0A0A1F, #000000, #1A1240); 
+            background: linear-gradient(135deg, #fff5f7, #fce4ec, #ffffff, #f8bbd0); 
             background-size: 300% 300%; 
-            animation: gradientMove 30s ease infinite alternate;
-            color: #ffffff;
+            animation: gradientMove 15s ease infinite alternate;
+            color: #4a4a4a;
             overflow-x: hidden;
-            transition: background-color 0.8s ease;
+            margin: 0;
         }
-        
 
         .coolvetica-style {
-            font-family: 'Poppins', sans-serif; 
             letter-spacing: 2px;
             font-weight: 800; 
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-
-                transform: translateY(15px); 
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            color: #d81b60;
         }
 
         @keyframes gradientMove {
@@ -50,293 +33,174 @@
             100% { background-position: 100% 50%; }
         }
 
-
-        @keyframes subtleFloat {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-3px); }
-            100% { transform: translateY(0px); }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
-        @keyframes pulseGlow {
-            0%, 100% {
-
-                box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.2), 0 0 5px 2px rgba(255, 255, 255, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 30px 10px rgba(255, 255, 255, 0.4), 0 0 10px 4px rgba(255, 255, 255, 0.6);
-            }
-        }
-        
-        @keyframes backgroundShine {
-            from { background-position: 200% center; }
-            to { background-position: -200% center; }
-        }
-
-        .animate-fade-in {
-            animation: fadeIn 1.5s ease-in-out forwards;
-        }
-        
 
         .animate-fade-in-up {
             opacity: 0; 
             animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
         }
+        
         .delay-200 { animation-delay: 0.2s; }
         .delay-300 { animation-delay: 0.3s; } 
-        .delay-400 { animation-delay: 0.4s; }
         .delay-600 { animation-delay: 0.6s; }
         .delay-800 { animation-delay: 0.8s; } 
         .delay-1000 { animation-delay: 1.0s; }
         .delay-1200 { animation-delay: 1.2s; } 
         .delay-1400 { animation-delay: 1.4s; }
-        .delay-1600 { animation-delay: 1.6s; }
-        .delay-1800 { animation-delay: 1.8s; } 
-        .delay-2000 { animation-delay: 2.0s; } 
 
-
-        
         .profile-pic {
-            opacity: 1; 
-            animation: pulseGlow 4s infinite ease-in-out;
+            border: 4px solid white;
+            box-shadow: 0 0 20px rgba(216, 27, 96, 0.2);
+            z-index: 30;
+            margin-top: -80px;
+            background-color: white;
         }
 
-        .shiny-text {
-            background: linear-gradient(90deg, #aaa, #fff, #aaa);
-            background-size: 200% auto;
-            color: #fff;
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: backgroundShine 5s linear infinite;
+        .social-icon {
+            transition: transform 0.3s ease;
         }
-        
-
-        .main-content-wrapper {
-             animation: subtleFloat 10s ease-in-out infinite;
+        .social-icon:hover {
+            transform: scale(1.2);
         }
 
         .card {
-
-            background-color: rgba(0, 0, 0, 0.2); 
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.6); 
+            border: 1px solid rgba(216, 27, 96, 0.1);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-
-            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.4s ease, box-shadow 0.4s ease; 
-
-            position: relative;
-            overflow: hidden;
-            padding: 1.5rem; 
+            color: #d81b60;
+            transition: transform 0.4s ease;
         }
-
+        
         .card:hover {
-
-            transform: translateY(-10px) scale(1.05) rotateZ(0.5deg); 
-            border-color: rgba(255, 255, 255, 0.7);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transform: translateY(-5px);
         }
-
-        .card-textbox {
-
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-     
-            background-color: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            padding: 0.75rem; /* p-3 */
-         
-            transform: translateY(100%);
-            opacity: 0;
-            transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
-        }
-
- 
-        .card:hover .card-textbox {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
 
         #particles-js {
-            position: absolute;
+            position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 0;
+            z-index: 1;
+            pointer-events: none;
         }
-        
-      
-        .footer-bg {
-            background-color: rgba(0, 0, 0, 0.2);
+
+        .banner-container {
             width: 100%;
-            padding: 1rem 0;
+            max-width: 1500px;
+            margin-top: 1rem;
+        }
+
+        .banner-img {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1500 / 500;
+            object-fit: cover;
+            border-radius: 1rem;
+            border: 2px solid white;
+            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.1);
         }
     </style>
 </head>
 <body class="antialiased">
     <div id="particles-js"></div>
 
-    <div class="relative min-h-screen w-full flex flex-col items-center justify-center p-4 z-20 main-content-wrapper"> 
+    <div class="relative min-h-screen w-full flex flex-col items-center p-4 z-20"> 
+        
+        <div class="banner-container animate-fade-in-up">
+            <img src="https://i.ibb.co/pBxc4MNm/corv-pink.jpg" alt="Banner" class="banner-img">
+        </div>
 
         <header class="text-center flex flex-col items-center">
             <img 
                 src="https://i.ibb.co/XrWQ3Dzw/HAD-TO.png" 
                 alt="corvx pfp" 
-                class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover z-30 profile-pic animate-fade-in-up delay-200"
-                onerror="this.onerror=null; this.src='https://placehold.co/160x160/000000/ffffff?text=if%20u%20see%20this%20dm';"
+                referrerpolicy="no-referrer"
+                class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover profile-pic animate-fade-in-up delay-200"
             >
-          
-            <h2 class="text-4xl mt-1 mb-0 text-gray-100 coolvetica-style animate-fade-in-up delay-300">
-                corvx
-            </h2>
-           
-            
-        
-            <p class="text-gray-400 mt-0 text-lg max-w-md animate-fade-in-up delay-600">
-                Manifest your dreams.
-            </p>
+            <h2 class="text-4xl mt-4 mb-0 coolvetica-style animate-fade-in-up delay-300">corvx</h2>
+            <p class="text-pink-600 mt-2 text-lg max-w-md animate-fade-in-up delay-600">Manifest your dreams.</p>
 
-            
-            <div class="flex space-x-4 mt-4 animate-fade-in-up delay-800">
-                
-          
-                <a href="https://www.twitch.tv/corvxwtw" class="transition-colors duration-300 transform hover:scale-125" aria-label="Twitch Link">
-                    <img src="https://i.ibb.co/pvW96DYx/Twitch.png" alt="Twitch Icon" class="h-10 w-10 filter brightness-125">
-                </a>
-                
-               
-                <a href="https://x.com/corvxwtw" class="transition-colors duration-300 transform hover:scale-125" aria-label="X (Twitter) Link">
-                    <img src="https://i.ibb.co/vvqQLp21/X.png" alt="X (Twitter) Icon" class="h-10 w-10 filter brightness-125">
-                </a>
-                
-              
-                <a href="https://www.youtube.com/@corvxwtw" class="transition-colors duration-300 transform hover:scale-125" aria-label="YouTube Link">
-                    <img src="https://i.ibb.co/KzSr55sD/youtube.png" alt="YouTube Icon" class="h-10 w-10 filter brightness-125">
-                </a>
+            <div class="flex space-x-6 mt-6 animate-fade-in-up delay-800">
+                <a href="https://www.twitch.tv/corvxwtw"><img src="https://i.ibb.co/pvW96DYx/Twitch.png" class="h-10 w-10 social-icon"></a>
+                <a href="https://x.com/corvxwtw"><img src="https://i.ibb.co/vvqQLp21/X.png" class="h-10 w-10 social-icon"></a>
+                <a href="https://www.youtube.com/@corvxwtw"><img src="https://i.ibb.co/KzSr55sD/youtube.png" class="h-10 w-10 social-icon"></a>
             </div>
-            </header>
+        </header>
 
-       
-        <main class="w-full max-w-4xl mt-8">
-            <main class="w-full max-w-4xl mt-8">
-            <h2 class="text-2xl font-semibold text-center text-gray-300 animate-fade-in-up delay-1000">My Favs</h2>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6 mt-6">
-                
-                <div class="card p-6 rounded-xl flex flex-col items-center justify-between aspect-square animate-fade-in-up delay-1200">
-                    <div>
-                        <svg class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M9 18V5l12-2v13"></path>
-                            <circle cx="6" cy="18" r="3"></circle>
-                            <circle cx="18" cy="16" r="3"></circle>
-                        </svg>
-                        <span class="mt-4 font-semibold block text-center">Music</span>
-                    </div>
-                    <div class="card-textbox">
-                        <p class="text-xs text-gray-200">I love listening to Ken Carson, Lil Tecca, Drake, and Travis Scott.</p>
-                    </div>
+        <main class="w-full max-w-4xl mt-12 mb-12">
+            <h2 class="text-2xl font-semibold text-center text-pink-700 animate-fade-in-up delay-1000">My favs</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
+                <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
+                    <span class="font-semibold block text-lg">Music</span>
+                    <p class="text-sm mt-2">I like listening to Ken Carson, Lil Tecca, Drake, Travis Scott.</p>
                 </div>
-
-                <div class="card p-6 rounded-xl flex flex-col items-center justify-between aspect-square animate-fade-in-up delay-1400">
-                    <div>
-                        <svg class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M14 2c4.48 1.48 7.6 5.56 8 10a10 10 0 0 1-18 0c.4-4.44 3.52-8.52 8-10"/>
-                            <path d="M12 2v20"/>
-                            <path d="M10 12h4"/>
-                            <path d="M10 16h4"/>
-                            <path d="M10 8h4"/>
-                        </svg>
-                        <span class="mt-4 font-semibold block text-center">Football</span>
-                    </div>
-                    <div class="card-textbox">
-                        <p class="text-xs text-gray-200">Huge fan of the NFL, I've been watching and playing since 6 years old. Go Vikings!</p>
-                    </div>
+                <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
+                    <span class="font-semibold block text-lg">Football</span>
+                    <p class="text-sm mt-2">I have been watching and playing foootbal since 6 years old.</p>
                 </div>
-
-                <div class="card p-6 rounded-xl flex flex-col items-center justify-between aspect-square animate-fade-in-up delay-1600">
-                    <div>
-                        <svg class="h-12 w-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 19c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
-                            <path d="M15 11h-2V9h-2v2H9v2h2v2h2v-2h2v-2z"></path>
-                        </svg>
-                        <span class="mt-4 font-semibold block text-center">Fortnite</span>
-                    </div>
-                    <div class="card-textbox">
-                        <p class="text-xs text-gray-200">Posting on my youtube for yall to watch!.</p>
-                    </div>
+                <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
+                    <span class="font-semibold block text-lg">Fortnite</span>
+                    <p class="text-sm mt-2">Making and uploading content that y'all enjoy!</p>
                 </div>
-                
             </div>
-            
+
+            <div class="card w-full mt-8 p-8 rounded-2xl animate-fade-in-up delay-1400">
+                <h3 class="text-2xl font-bold mb-4">About Me</h3>
+                <p class="text-gray-700 leading-relaxed">
+                        Yo, I'm <span class="text-purple-400 font-semibold">corvx</span>. Welcome to my space. I'm a creator focused on gaming, music, and sports. 
+                        I spend most of my time grinding Fortnite and keeping up with the latest in the underground music scene. I love interacting with my fans.
+                        
+                    </p>
+                    <p>
+                        
+                        Beyond the screen, I like hanging out with family and friends. I do watch a lot of football and basketball in my free time.
+                    </p>
+                </p>
+            </div>
         </main>
-        
-        <div class="footer-bg mt-12 animate-fade-in-up delay-2000">
-            <footer class="text-center">
-                <p class="text-gray-400 text-sm">originally made by @keyzzilla // edited to fit my interests // all credit to him.</p>
-            </footer>
-        </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const particlesContainer = document.getElementById('particles-js');
-            const numParticles = 50;
+            const container = document.getElementById('particles-js');
+            const particleCount = 100; 
 
-            for (let i = 0; i < numParticles; i++) {
-                let particle = document.createElement('div');
-                particle.classList.add('particle');
+            for (let i = 0; i < particleCount; i++) {
+                let p = document.createElement('div');
+                const size = Math.random() * 4 + 2; 
+                const opacity = Math.random() * 0.5 + 0.3; 
                 
-                const size = Math.random() * 3 + 1; 
-                const x = Math.random() * 100; 
-                const y = Math.random() * 100; 
+                p.style.width = `${size}px`;
+                p.style.height = `${size}px`;
+                p.style.background = '#d81b60'; 
+                p.style.position = 'absolute';
+                p.style.borderRadius = '50%';
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.top = Math.random() * 100 + 'vh';
+                p.style.opacity = opacity;
+                p.style.boxShadow = '0 0 8px rgba(216, 27, 96, 0.3)'; 
                 
+                const driftX = (Math.random() - 0.5) * 200; 
+                const driftY = (Math.random() - 0.5) * 200; 
+                const duration = Math.random() * 6 + 4; 
+                
+                p.animate([
+                    { transform: 'translate(0, 0)', opacity: opacity },
+                    { transform: `translate(${driftX}px, ${driftY}px)`, opacity: opacity * 1.3 },
+                    { transform: 'translate(0, 0)', opacity: opacity }
+                ], {
+                    duration: duration * 1000,
+                    iterations: Infinity,
+                    easing: 'ease-in-out'
+                });
 
-                const duration = 4.2; 
-                
-                const delay = Math.random() * 10; 
-
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.position = 'absolute';
-                
-                particle.style.backgroundColor = 'rgba(255, 255, 255, 0.9)'; 
-                particle.style.borderRadius = '50%';
-                particle.style.left = `${x}vw`;
-                particle.style.top = `${y}vh`;
-                particle.style.animation = `float ${duration}s ease-in-out ${delay}s infinite alternate`;
-                
-                particlesContainer.appendChild(particle);
+                container.appendChild(p);
             }
         });
-
-     
-        const styleSheet = document.createElement("style");
-        styleSheet.type = "text/css";
-        styleSheet.innerText = `
-            @keyframes float {
-                0% {
-                    transform: translateY(0px) translateX(0px);
-                    opacity: 0.7;
-                }
-                50% {
-                    transform: translateY(-20px) translateX(10px);
-                    opacity: 0.3;
-                }
-                100% {
-                    transform: translateY(0px) translateX(0px);
-                    opacity: 0.7;
-                }
-            }
-        `;
-        document.head.appendChild(styleSheet);
     </script>
-
 </body>
-
 </html>
-
