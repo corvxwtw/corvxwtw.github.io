@@ -3,235 +3,473 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    
-    <title>Corv's Pink Corvette.</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+    <title>Corv's Corvette.</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Poppins:wght@400;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        :root {
+            --bg: #000000; 
+            --fg: #ffffff; 
+            --dim: #333333; 
+            --glow: 0 0 10px rgba(255, 255, 255, 0.2);
+            --border: 1px solid var(--fg);
+        }
+
+        @keyframes typing-loop {
+            0%, 10% { width: 0; }
+            40%, 60% { width: 100%; } 
+            90%, 100% { width: 0; }   
+        }
+
+        @keyframes blink { 50% { border-color: transparent; } }
+
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        * { box-sizing: border-box; cursor: crosshair; }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #fff5f7, #fce4ec, #ffffff, #f8bbd0); 
-            background-size: 300% 300%; 
-            animation: gradientMove 15s ease infinite alternate;
-            color: #000000;
-            overflow-x: hidden;
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: 'Poppins', 'JetBrains Mono', monospace;
             margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            animation: flicker 0.15s infinite;
         }
 
-        .coolvetica-style {
-            letter-spacing: 2px;
-            font-weight: 800; 
-            color: #000000;
-        }
-
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .animate-fade-in-up {
-            opacity: 0; 
-            animation: fadeInUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
-        }
-        
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; } 
-        .delay-600 { animation-delay: 0.6s; }
-        .delay-800 { animation-delay: 0.8s; } 
-        .delay-1000 { animation-delay: 1.0s; }
-        .delay-1200 { animation-delay: 1.2s; } 
-        .delay-1400 { animation-delay: 1.4s; }
-        .delay-1600 { animation-delay: 1.6s; }
-        .delay-1800 { animation-delay: 1.8s; }
-
-        .profile-pic {
-            border: 4px solid white;
-            box-shadow: 0 0 20px rgba(216, 27, 96, 0.2);
-            z-index: 30;
-            margin-top: -80px;
-            background-color: white;
-        }
-
-        .social-icon {
-            transition: transform 0.3s ease;
-        }
-        .social-icon:hover {
-            transform: scale(1.2);
-        }
-
-        .card {
-            background-color: rgba(255, 255, 255, 0.6); 
-            border: 1px solid rgba(216, 27, 96, 0.1);
-            backdrop-filter: blur(10px);
-            color: #000000;
-            transition: transform 0.4s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        #particles-js {
+        .crt-overlay {
             position: fixed;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+            z-index: 99;
             pointer-events: none;
         }
 
-        .banner-container {
-            width: 100%;
-            max-width: 1500px;
-            margin-top: 1rem;
+        .scanline {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100px;
+            background: linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            z-index: 100;
+            pointer-events: none;
+            animation: scanline 8s linear infinite;
         }
 
-        .banner-img {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 1500 / 500;
-            object-fit: cover;
-            border-radius: 1rem;
-            border: 2px solid white;
-            box-shadow: 0 10px 25px rgba(216, 27, 96, 0.1);
+        #enter-overlay {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
+
+        .container, #work-page, #besties-page { width: 100%; max-width: 800px; z-index: 1; display: none; }
+
+        .profile-header {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 30px;
+            border: var(--border);
+            padding: 25px;
+            background: rgba(5, 5, 5, 0.9);
+            box-shadow: var(--glow);
+            align-items: center;
+        }
+
+        .pfp-wrapper {
+            width: 100px; height: 100px;
+            border: 1px solid var(--fg);
+            overflow: hidden;
+        }
+
+        .pfp { width: 100%; height: 100%; object-fit: cover; }
+
+        .typewriter {
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid var(--fg);
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            animation: typing-loop 5s steps(15, end) infinite, blink .75s step-end infinite;
+        }
+
+        .music-player {
+            border: var(--border);
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #000;
+            width: 100%;
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            background: var(--fg);
+            color: #000;
+            padding: 5px 0;
+            margin-bottom: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+        }
+
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .volume-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-grow: 1;
+            max-width: 250px;
+        }
+
+        input[type=range] { 
+            -webkit-appearance: none; 
+            flex-grow: 1; 
+            background: transparent; 
+            cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--dim); }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px; width: 6px;
+            background: var(--fg);
+            margin-top: -5px;
+        }
+
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+
+        .box { border: var(--border); padding: 20px; background: rgba(5, 5, 5, 0.8); }
+        .box h2 { 
+            font-size: 0.75rem; margin: -20px -20px 20px -20px; 
+            background: var(--fg); color: #000;
+            padding: 5px 10px;
+            text-transform: uppercase;
+            font-weight: 800;
+        }
+
+        .social-links a { color: var(--fg); font-size: 1.5rem; transition: transform 0.3s ease; }
+        .social-links a:hover { transform: scale(1.2); color: #ffffff; }
+
+        .full { grid-column: span 2; }
+
+        .btn {
+            background: none; border: 1px solid var(--fg); color: var(--fg);
+            padding: 5px 15px; font-family: inherit; font-size: 0.7rem;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn:hover { background: var(--fg); color: #000; }
+
+        .img-content-box {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        footer { 
+            width: 100%; text-align: center; margin-top: 60px; 
+            font-size: 0.65rem; opacity: 0.3; letter-spacing: 5px;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+            width: 100%;
+        }
+
+        .work-item {
+            border: var(--border);
+            padding: 15px;
+            background: rgba(5, 5, 5, 0.8);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .work-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border: 1px solid var(--dim);
+            margin-bottom: 10px;
+            background: #111;
+        }
+
+        .bestie-name {
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid var(--dim);
+            padding-bottom: 5px;
+        }
+
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .full { grid-column: span 1; } .img-content-box { flex-direction: column; } }
     </style>
 </head>
-<body class="antialiased">
-    <div id="particles-js"></div>
+<body>
+    <div class="crt-overlay"></div>
+    <div class="scanline"></div>
 
-    <div class="relative min-h-screen w-full flex flex-col items-center p-4 z-20"> 
-        
-        <div class="banner-container animate-fade-in-up">
-            <img src="https://i.ibb.co/pBxc4MNm/corv-pink.jpg" alt="Banner" class="banner-img">
+    <div id="enter-overlay">
+        <button class="btn" onclick="initTerminal()">[ INITIALIZE_CORVETTE ]</button>
+    </div>
+
+    <div class="container" id="main-content">
+        <div style="width: 100%; display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px;">
+            <button class="btn" onclick="showBesties()">[ MY BESTIES ]</button>
+            <button class="btn" onclick="showWork()">[ MY WORK ]</button>
         </div>
 
-        <header class="text-center flex flex-col items-center">
-            <img 
-                src="https://i.ibb.co/XrWQ3Dzw/HAD-TO.png" 
-                alt="corvx pfp" 
-                referrerpolicy="no-referrer"
-                class="w-40 h-40 md:w-48 md:h-48 rounded-full object-cover profile-pic animate-fade-in-up delay-200"
-            >
-            <h2 class="text-4xl mt-4 mb-0 coolvetica-style animate-fade-in-up delay-300">corvx</h2>
-            <p class="text-black mt-2 text-lg max-w-md animate-fade-in-up delay-600">Manifest your dreams.</p>
-
-            <div class="flex space-x-6 mt-6 animate-fade-in-up delay-800">
-                <a href="https://www.twitch.tv/corvxwtw"><img src="https://i.ibb.co/pvW96DYx/Twitch.png" class="h-10 w-10 social-icon"></a>
-                <a href="https://x.com/corvxwtw"><img src="https://i.ibb.co/vvqQLp21/X.png" class="h-10 w-10 social-icon"></a>
-                <a href="https://www.youtube.com/@corvxwtw"><img src="https://i.ibb.co/KzSr55sD/youtube.png" class="h-10 w-10 social-icon"></a>
+        <header class="profile-header">
+            <div class="pfp-wrapper">
+                <img src="https://i.ibb.co/LXVw70PM/w-black.png" alt="pfp" class="pfp">
+            </div>
+            <div>
+                <span class="typewriter">CORV'S CORVETTE</span>
+                <p style="font-size: 0.65rem; color: var(--dim); margin: 5px 0 0 0; font-family: 'JetBrains Mono', monospace; font-style: italic; opacity: 0.8;">
+                    "2026.is.my.year."
+                </p>
+                <div class="social-links" style="margin-top: 10px;">
+                    <a href="https://discord.gg/73527jvJgv"><i class="fa-brands fa-discord"></i></a>
+                    <a href="https://x.com/corvxwtw"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://youtube.com/@corvxwtw"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="https:/twitch.tv/corvxwtw"><i class="fa-brands fa-twitch"></i></a>
+                    <a href="https:/tiktok.com/@c0rvx"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+                <p style="font-size: 0.7rem; color: var(--fg); margin-top: 12px;">
+                    STATUS: <span style="color: #ffffff; text-shadow: 0 0 5px rgba(255,255,255,0.5);">ACTIVE</span> 
+                </p>
             </div>
         </header>
 
-        <main class="w-full max-w-4xl mt-12 mb-12">
-            <h2 class="text-2xl font-semibold text-center text-black animate-fade-in-up delay-1000">My favs</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-6">
-                <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
-                    <span class="font-semibold block text-lg">Music</span>
-                    <p class="text-sm mt-2">I like listening to Ken Carson, Lil Tecca, Drake, Travis Scott.</p>
+        <div class="music-player">
+            <div class="marquee-container">
+                <div class="marquee-text" id="track-display">SYSTEM_AUDIO: 4X4.MP3 — BITRATE: 320KBPS — </div>
+            </div>
+            <div class="controls-row">
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn" onclick="prevTrack()"><i class="fa-solid fa-backward"></i></button>
+                    <button class="btn" onclick="togglePlay()" id="play-btn">PLAY</button>
+                    <button class="btn" onclick="nextTrack()"><i class="fa-solid fa-forward"></i></button>
                 </div>
-                <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
-                    <span class="font-semibold block text-lg">Football</span>
-                    <p class="text-sm mt-2">I have been watching and playing foootball since 6 years old.</p>
+                <div class="volume-inline">
+                    <span style="font-size: 0.6rem; opacity: 0.8;">VOL</span>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.15">
+                    <span id="vol-pct" style="min-width: 35px; font-size: 0.7rem; text-align: right;">15%</span>
                 </div>
-                <div class="card p-6 rounded-xl text-center animate-fade-in-up delay-1200">
-                    <span class="font-semibold block text-lg">Fortnite</span>
-                    <p class="text-sm mt-2">Making and uploading content that y'all enjoy!</p>
-                </div>
+                <div style="font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;" id="time-display">00:00</div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="box full">
+                <h2>>_About me</h2>
+                <p style="font-size: 0.8rem; line-height: 1.6;">Yo, I'm corvx. Welcome to my space. I'm a creator focused on gaming, music, and sports. I spend most of my time grinding Fortnite and keeping up with the latest in the underground music scene. I love interacting with my fans. Beyond the screen, I like hanging out with family and friends. I do watch a lot of football and basketball in my free time.</p>
             </div>
 
-            <div class="card w-full mt-8 p-8 rounded-2xl animate-fade-in-up delay-1400">
-                <h3 class="text-2xl font-bold mb-4">About Me</h3>
-                <p class="text-black leading-relaxed">
-                        Yo, I'm <span class="text-black font-semibold">corvx</span>. Welcome to my space. I'm a creator focused on gaming, music, and sports. 
-                        I spend most of my time grinding Fortnite and keeping up with the latest in the underground music scene. I love interacting with my fans.
-                </p>
-                <p class="text-black">
-                        Beyond the screen, I like hanging out with family and friends. I do watch a lot of football and basketball in my free time.
-                </p>
-            </div>
-
-            <div class="card w-full mt-8 p-8 rounded-2xl animate-fade-in-up delay-1600">
-                <h3 class="text-2xl font-bold mb-4">How my journey started</h3>
-                <p class="text-black leading-relaxed">
-                    I started off at 4 years old. Just a normal kid playing his favorite game. Throughout my journey I have tried getting more into the comp scene and content scene. I have now been apart of many esport teams helping me throught the way of my journey.
-                </p>
-            </div>
-
-            <div class="card w-full mt-8 p-8 rounded-2xl animate-fade-in-up delay-1800">
-                <div class="flex flex-col md:flex-row items-center gap-6">
-                    <div class="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center border-2 border-dashed border-pink-300 overflow-hidden">
-                        <img src="https://i.ibb.co/4gfTCRNw/unnamed-3-removebg-preview.png" alt="Feature Image" class="w-full h-full object-cover">
+            <div class="box full">
+                <h2>>_SYSTEM_VISUAL</h2>
+                <div class="img-content-box">
+                    <div class="pfp-wrapper" style="width: 150px; height: 150px; flex-shrink: 0; box-shadow: var(--glow);">
+                        <img src="https://i.ibb.co/FLGHkQtW/mtz-pink.jpg" alt="visual_log" class="pfp">
                     </div>
-                    <div class="flex-1 text-center md:text-left">
-                        <h3 class="text-2xl font-bold mb-2">Monster Esports</h3>
-                        <p class="text-black leading-relaxed">
-                            Monster has been with me for now a week. Overtime they have helped me throughtout my journey. Something I will always never forget the feeling of Monster accepting me and helping my journey.
+                    <div>
+                        <p style="font-size: 0.8rem; line-height: 1.6; color: var(--fg); margin-bottom: 20px;">
+                            I own a part of Team Monster, I run the competitive Fortnite roster WITH @KEYZZILLA AND MTZ THEM SELF.
                         </p>
+                        <a href="https://teammonster.org" target="_blank" style="text-decoration: none;">
+                            <button class="btn">[ ACCESS_MONSTER ]</button>
+                        </a>
                     </div>
                 </div>
-                <div class="flex justify-center md:justify-start space-x-6 mt-6 pt-6 border-t border-pink-100">
-                    <a href="https://www.youtube.com/" class="social-icon">
-                        <img src="https://i.ibb.co/KzSr55sD/youtube.png" alt="Social" class="h-8 w-8">
-                    </a>
-                    <a href="https://x.com/" class="social-icon">
-                        <img src="https://i.ibb.co/vvqQLp21/X.png" alt="Social" class="h-8 w-8">
-                    </a>
-                    <a href="https://www.twitch.tv/" class="social-icon">
-                        <img src="https://i.ibb.co/pvW96DYx/Twitch.png" alt="Social" class="h-8 w-8">
-                    </a>
-                </div>
             </div>
-        </main>
+
+            <div class="box">
+                <h2>>HARDWARE_LOG</h2>
+                <p style="font-size: 0.7rem;">CPU: i9-13900k <br> GPU: RTX 3070 TI <br> RAM: 32GB DDR5</p>
+            </div>
+        </div>
+        <footer>[ v2.0 // MADE BY @KEYZZILLA AND ME OFC ]</footer>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('particles-js');
-            const particleCount = 100; 
+    <div id="work-page">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 15px;">
+            <button class="btn" onclick="showHome()">[ BACK_TO_TERMINAL ]</button>
+        </div>
+        <div class="box full">
+            <h2>>Achievements</h2>
+            <div class="work-grid">
+                <div class="work-item">
+                    <img src="https://i.ibb.co/QvfKSHgK/Screenshot-2025-12-31-225333.png" alt="Resume" class="work-img" style="aspect-ratio: 16/9;">
+                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Here is my resume. I use it for esports and hope to grow it. I hope esports help me become more known.</p>
+                    <a href="https://docs.google.com/document/d/14T5BN-rHwo5DeOaK8Nh5VDipeazraI6CPps3qZAHnuo/edit?usp=sharing" target="_blank" class="btn">[ ACCESS_RESUME ]</a>
+                </div>
+                <div class="work-item">
+                    <img src="https://i.ibb.co/chfpDgMP/Screenshot-2025-12-31-224811.png" alt="KeyzzILLA" class="work-img" style="aspect-ratio: 16/9;">
+                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Here is my best friend and I. Keyzz and I have been friends since the start of the year. We have worked and played a lot together, go check out his website.</p>
+                    <a href="https://keyzzilla.com/" target="_blank" class="btn">[ ACCESS_KEYZZILLA ]</a>
+                </div>
+            </div>
+        </div>
+        <footer>[ v2.0 // CORVETTE Achievements ]</footer>
+    </div>
 
-            for (let i = 0; i < particleCount; i++) {
-                let p = document.createElement('div');
-                const size = Math.random() * 4 + 2; 
-                const opacity = Math.random() * 0.5 + 0.3; 
-                
-                p.style.width = `${size}px`;
-                p.style.height = `${size}px`;
-                p.style.background = '#d81b60'; 
-                p.style.position = 'absolute';
-                p.style.borderRadius = '50%';
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.top = Math.random() * 100 + 'vh';
-                p.style.opacity = opacity;
-                p.style.boxShadow = '0 0 8px rgba(216, 27, 96, 0.3)'; 
-                
-                const driftX = (Math.random() - 0.5) * 200; 
-                const driftY = (Math.random() - 0.5) * 200; 
-                const duration = Math.random() * 6 + 4; 
-                
-                p.animate([
-                    { transform: 'translate(0, 0)', opacity: opacity },
-                    { transform: `translate(${driftX}px, ${driftY}px)`, opacity: opacity * 1.3 },
-                    { transform: 'translate(0, 0)', opacity: opacity }
-                ], {
-                    duration: duration * 1000,
-                    iterations: Infinity,
-                    easing: 'ease-in-out'
-                });
+    <div id="besties-page">
+        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 15px;">
+            <button class="btn" onclick="showHome()">[ BACK_TO_TERMINAL ]</button>
+        </div>
+        <div class="box full">
+            <h2>>_My Besties</h2>
+            <div class="work-grid">
+                <div class="work-item">
+                    <div class="bestie-name">[ Keyzz ]</div>
+                    <img src="https://i.ibb.co/zVXTqRh0/keyzz-image.png" alt="Keyzz" class="work-img">
+                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Keyzz grinds with me. Wherever I go, he is there. Even though I make the calls as the IGL, he does his own thing and dominates.</p>
+                    <a href="https://keyzzilla.com/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
+                </div>
 
-                container.appendChild(p);
-            }
-        });
-    </script>
+                <div class="work-item">
+                    <div class="bestie-name">[ Ryan ]</div>
+                    <img src="https://i.ibb.co/hFVpVtXq/ryan-pfp.png" alt="Ryan" class="work-img">
+                    <p style="font-size: 0.6rem; margin-bottom: 15px;">He is a psycho at coding. He is there to help me when needed. Sometimes he and Wyind can troll me forever.</p>
+                    <a href="https://ryanpc.org/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
+                </div>
+
+                <div class="work-item">
+                    <div class="bestie-name">[ Wyind ]</div>
+                    <img src="https://i.ibb.co/d0VKDjT0/wyind-pfp.png" alt="Wyind" class="work-img">
+                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Although he uses Linux, TAKE HIM SERIOUS. Wyind helps me out like Ryan. He is a little older but still plays Fortnite with me and the boys.</p>
+                    <a href="https://www.wyind.dev/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
+                </div>
+            </div>
+        </div>
+        <footer>[ v2.0 // CIRCLE_OF_TRUST ]</footer>
+    </div>
+
+<script>
+    const playlist = [
+        { name: "4X4", url: "assets/4x4.mp3" },
+        { name: "SHAKIRA!", url: "assets/shakira.mp3" },
+        { name: "TOOK HER TO THE O", url: "assets/thtto.mp3" },
+        { name: "SS", url: "assets/ss.mp3" }
+    ];
+
+    let currentTrackIndex = 0;
+    let audio = new Audio(playlist[currentTrackIndex].url);
+    audio.volume = 0.15;
+
+    function initTerminal() {
+        document.getElementById('enter-overlay').style.display = 'none';
+        document.getElementById('main-content').style.display = 'block';
+        updateDisplay();
+    }
+
+    function hideAll() {
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('work-page').style.display = 'none';
+        document.getElementById('besties-page').style.display = 'none';
+    }
+
+    function showWork() {
+        hideAll();
+        document.getElementById('work-page').style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function showBesties() {
+        hideAll();
+        document.getElementById('besties-page').style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function showHome() {
+        hideAll();
+        document.getElementById('main-content').style.display = 'block';
+        window.scrollTo(0,0);
+    }
+
+    function updateDisplay() {
+        const trackText = document.getElementById('track-display');
+        trackText.innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3 — `;
+    }
+
+    function togglePlay() {
+        const btn = document.getElementById('play-btn');
+        if (audio.paused) {
+            audio.play();
+            btn.innerText = "STOP";
+        } else {
+            audio.pause();
+            btn.innerText = "PLAY";
+        }
+    }
+
+    function nextTrack() {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        changeTrack();
+    }
+
+    function prevTrack() {
+        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        changeTrack();
+    }
+
+    function changeTrack() {
+        const wasPlaying = !audio.paused;
+        audio.pause();
+        audio.src = playlist[currentTrackIndex].url;
+        updateDisplay();
+        if (wasPlaying) audio.play();
+    }
+
+    audio.addEventListener('ended', nextTrack);
+
+    document.getElementById('volume-slider').addEventListener('input', (e) => {
+        const val = e.target.value;
+        audio.volume = val;
+        document.getElementById('vol-pct').innerText = Math.round(val * 100) + "%";
+    });
+
+    audio.addEventListener('timeupdate', () => {
+        const mins = Math.floor(audio.currentTime / 60);
+        const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+        document.getElementById('time-display').innerText = `${mins}:${secs}`;
+    });
+</script>
 </body>
 </html>
