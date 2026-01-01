@@ -279,7 +279,7 @@
 
         <div class="music-player">
             <div class="marquee-container">
-                <div class="marquee-text" id="track-display">SYSTEM_AUDIO: 4X4.MP3 — BITRATE: 320KBPS — </div>
+                <div class="marquee-text" id="track-display">SYSTEM_AUDIO: OFFLINE — </div>
             </div>
             <div class="controls-row">
                 <div style="display: flex; gap: 8px;">
@@ -382,45 +382,32 @@
     </div>
 
 <script>
-    // UPDATED PLAYLIST WITH STABLE DROPBOX LINKS
+    // These look for files inside your GitHub folder named 'music'
     const playlist = [
-        { name: "4X4", url: "https://dl.dropbox.com/scl/fi/f09u7u4c73v4v2r9l5k6n/4x4.mp3?rlkey=2j6j0j0j0j0j0j0j0j0j0&dl=1" },
-        { name: "SHAKIRA!", url: "https://dl.dropbox.com/scl/fi/p0xovg.mp3?dl=1" },
-        { name: "TOOK HER TO THE O", url: "https://dl.dropbox.com/scl/fi/0v2d7n.mp3?dl=1" },
-        { name: "SS", url: "https://dl.dropbox.com/scl/fi/i6m3u4.mp3?dl=1" }
+        { name: "4X4", url: "music/4x4.mp3" },
+        { name: "SHAKIRA!", url: "music/shakira.mp3" },
+        { name: "TOOK HER TO THE O", url: "music/tookhertotheo.mp3" },
+        { name: "SS", url: "music/ss.mp3" }
     ];
 
     let currentTrackIndex = 0;
-    let audio = new Audio(playlist[currentTrackIndex].url);
+    let audio = new Audio();
     audio.volume = 0.15;
 
     function initTerminal() {
         document.getElementById('enter-overlay').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
+        
+        // Setup initial track
+        audio.src = playlist[currentTrackIndex].url;
         updateDisplay();
         
-        // Force audio to load and play
-        audio.load();
+        // This MUST be inside a user-click function to work on GitHub Pages
         audio.play().then(() => {
-             document.getElementById('play-btn').innerText = "STOP";
-        }).catch(err => {
-            console.log("Play failed: ", err);
+            document.getElementById('play-btn').innerText = "STOP";
+        }).catch(e => {
+            console.log("Music blocked or file missing. Make sure music folder exists.");
         });
-    }
-
-    function hideAll() {
-        document.getElementById('main-content').style.display = 'none';
-        document.getElementById('work-page').style.display = 'none';
-        document.getElementById('besties-page').style.display = 'none';
-    }
-
-    function showWork() { hideAll(); document.getElementById('work-page').style.display = 'block'; window.scrollTo(0,0); }
-    function showBesties() { hideAll(); document.getElementById('besties-page').style.display = 'block'; window.scrollTo(0,0); }
-    function showHome() { hideAll(); document.getElementById('main-content').style.display = 'block'; window.scrollTo(0,0); }
-
-    function updateDisplay() {
-        const trackText = document.getElementById('track-display');
-        trackText.innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3 — BITRATE: 320KBPS — `;
     }
 
     function togglePlay() {
@@ -453,6 +440,21 @@
             document.getElementById('play-btn').innerText = "STOP";
         });
     }
+
+    function updateDisplay() {
+        const trackText = document.getElementById('track-display');
+        trackText.innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3 — BITRATE: 320KBPS — `;
+    }
+
+    // Navigation functions
+    function hideAll() {
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('work-page').style.display = 'none';
+        document.getElementById('besties-page').style.display = 'none';
+    }
+    function showWork() { hideAll(); document.getElementById('work-page').style.display = 'block'; window.scrollTo(0,0); }
+    function showBesties() { hideAll(); document.getElementById('besties-page').style.display = 'block'; window.scrollTo(0,0); }
+    function showHome() { hideAll(); document.getElementById('main-content').style.display = 'block'; window.scrollTo(0,0); }
 
     audio.addEventListener('ended', nextTrack);
 
