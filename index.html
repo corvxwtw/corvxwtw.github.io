@@ -6,7 +6,6 @@
     <title>Corv's Corvette.</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Poppins:wght@400;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <script src="https://www.youtube.com/iframe_api"></script>
     <style>
         :root {
             --bg: #000000; 
@@ -23,9 +22,21 @@
         }
 
         @keyframes blink { 50% { border-color: transparent; } }
-        @keyframes flicker { 0% { opacity: 0.98; } 100% { opacity: 1; } }
-        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes scanline {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100vh); }
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
 
         * { box-sizing: border-box; cursor: crosshair; }
 
@@ -82,7 +93,12 @@
             align-items: center;
         }
 
-        .pfp-wrapper { width: 100px; height: 100px; border: 1px solid var(--fg); overflow: hidden; }
+        .pfp-wrapper {
+            width: 100px; height: 100px;
+            border: 1px solid var(--fg);
+            overflow: hidden;
+        }
+
         .pfp { width: 100%; height: 100%; object-fit: cover; }
 
         .typewriter {
@@ -96,54 +112,131 @@
             animation: typing-loop 5s steps(15, end) infinite, blink .75s step-end infinite;
         }
 
-        .music-player { border: var(--border); padding: 20px; margin-bottom: 30px; background: #000; width: 100%; }
-
-        .marquee-container {
-            overflow: hidden; white-space: nowrap; background: var(--fg); color: #000;
-            padding: 5px 0; margin-bottom: 15px; font-size: 0.75rem; font-weight: bold;
+        .music-player {
+            border: var(--border);
+            padding: 20px;
+            margin-bottom: 30px;
+            background: #000;
+            width: 100%;
         }
 
-        .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+            background: var(--fg);
+            color: #000;
+            padding: 5px 0;
+            margin-bottom: 15px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
 
-        .controls-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+        .marquee-text {
+            display: inline-block;
+            padding-left: 100%;
+            animation: marquee 15s linear infinite;
+        }
 
-        .volume-inline { display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 250px; }
+        .controls-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
 
-        input[type=range] { -webkit-appearance: none; flex-grow: 1; background: transparent; cursor: pointer; }
+        .volume-inline {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-grow: 1;
+            max-width: 250px;
+        }
+
+        input[type=range] { 
+            -webkit-appearance: none; 
+            flex-grow: 1; 
+            background: transparent; 
+            cursor: pointer;
+        }
         input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--dim); }
         input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 12px; width: 6px; background: var(--fg); margin-top: -5px;
+            -webkit-appearance: none;
+            height: 12px; width: 6px;
+            background: var(--fg);
+            margin-top: -5px;
         }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
+
         .box { border: var(--border); padding: 20px; background: rgba(5, 5, 5, 0.8); }
         .box h2 { 
             font-size: 0.75rem; margin: -20px -20px 20px -20px; 
-            background: var(--fg); color: #000; padding: 5px 10px;
-            text-transform: uppercase; font-weight: 800;
+            background: var(--fg); color: #000;
+            padding: 5px 10px;
+            text-transform: uppercase;
+            font-weight: 800;
         }
 
         .social-links a { color: var(--fg); font-size: 1.5rem; transition: transform 0.3s ease; }
         .social-links a:hover { transform: scale(1.2); color: #ffffff; }
+
         .full { grid-column: span 2; }
 
         .btn {
             background: none; border: 1px solid var(--fg); color: var(--fg);
             padding: 5px 15px; font-family: inherit; font-size: 0.7rem;
-            cursor: pointer; text-decoration: none; display: inline-block;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
         }
         .btn:hover { background: var(--fg); color: #000; }
 
-        .img-content-box { display: flex; gap: 20px; align-items: flex-start; }
-        footer { width: 100%; text-align: center; margin-top: 60px; font-size: 0.65rem; opacity: 0.3; letter-spacing: 5px; }
+        .img-content-box {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+        
+        footer { 
+            width: 100%; text-align: center; margin-top: 60px; 
+            font-size: 0.65rem; opacity: 0.3; letter-spacing: 5px;
+        }
 
-        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; width: 100%; }
-        .work-item { border: var(--border); padding: 15px; background: rgba(5, 5, 5, 0.8); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
-        .work-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 1px solid var(--dim); margin-bottom: 10px; background: #111; }
-        .bestie-name { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 2px; border-bottom: 1px solid var(--dim); padding-bottom: 5px; }
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 15px;
+            width: 100%;
+        }
 
-        /* Hide the actual YouTube player */
-        #yt-player { position: absolute; top: -9999px; left: -9999px; }
+        .work-item {
+            border: var(--border);
+            padding: 15px;
+            background: rgba(5, 5, 5, 0.8);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .work-img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border: 1px solid var(--dim);
+            margin-bottom: 10px;
+            background: #111;
+        }
+
+        .bestie-name {
+            font-size: 0.9rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+            border-bottom: 1px solid var(--dim);
+            padding-bottom: 5px;
+        }
 
         @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .full { grid-column: span 1; } .img-content-box { flex-direction: column; } }
     </style>
@@ -155,8 +248,6 @@
     <div id="enter-overlay">
         <button class="btn" onclick="initTerminal()">[ INITIALIZE_CORVETTE ]</button>
     </div>
-
-    <div id="yt-player"></div>
 
     <div class="container" id="main-content">
         <div style="width: 100%; display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px;">
@@ -188,7 +279,7 @@
 
         <div class="music-player">
             <div class="marquee-container">
-                <div class="marquee-text" id="track-display">SYSTEM_AUDIO: OFFLINE — </div>
+                <div class="marquee-text" id="track-display">SYSTEM_AUDIO: 4X4.MP3 — BITRATE: 320KBPS — </div>
             </div>
             <div class="controls-row">
                 <div style="display: flex; gap: 8px;">
@@ -198,10 +289,10 @@
                 </div>
                 <div class="volume-inline">
                     <span style="font-size: 0.6rem; opacity: 0.8;">VOL</span>
-                    <input type="range" id="volume-slider" min="0" max="100" step="1" value="20">
-                    <span id="vol-pct" style="min-width: 35px; font-size: 0.7rem; text-align: right;">20%</span>
+                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.15">
+                    <span id="vol-pct" style="min-width: 35px; font-size: 0.7rem; text-align: right;">15%</span>
                 </div>
-                <div style="font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;" id="time-display">0:00</div>
+                <div style="font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;" id="time-display">00:00</div>
             </div>
         </div>
 
@@ -291,57 +382,55 @@
     </div>
 
 <script>
-    // These are YouTube Video IDs for your tracks
+    // UPDATED PLAYLIST WITH STABLE DROPBOX LINKS
     const playlist = [
-        { name: "4X4", id: "5GzH6_XyX34" }, 
-        { name: "SHAKIRA!", id: "X6M4U4-xX34" },
-        { name: "TOOK HER TO THE O", id: "l-S3vSxkX7U" }
+        { name: "4X4", url: "https://dl.dropbox.com/scl/fi/f09u7u4c73v4v2r9l5k6n/4x4.mp3?rlkey=2j6j0j0j0j0j0j0j0j0j0&dl=1" },
+        { name: "SHAKIRA!", url: "https://dl.dropbox.com/scl/fi/p0xovg.mp3?dl=1" },
+        { name: "TOOK HER TO THE O", url: "https://dl.dropbox.com/scl/fi/0v2d7n.mp3?dl=1" },
+        { name: "SS", url: "https://dl.dropbox.com/scl/fi/i6m3u4.mp3?dl=1" }
     ];
 
     let currentTrackIndex = 0;
-    let player;
-
-    // Load YouTube API
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('yt-player', {
-            height: '0',
-            width: '0',
-            videoId: playlist[currentTrackIndex].id,
-            playerVars: { 'autoplay': 0, 'controls': 0, 'disablekb': 1 },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        player.setVolume(20);
-    }
-
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.ENDED) {
-            nextTrack();
-        }
-    }
+    let audio = new Audio(playlist[currentTrackIndex].url);
+    audio.volume = 0.15;
 
     function initTerminal() {
         document.getElementById('enter-overlay').style.display = 'none';
         document.getElementById('main-content').style.display = 'block';
-        player.playVideo();
         updateDisplay();
-        document.getElementById('play-btn').innerText = "STOP";
+        
+        // Force audio to load and play
+        audio.load();
+        audio.play().then(() => {
+             document.getElementById('play-btn').innerText = "STOP";
+        }).catch(err => {
+            console.log("Play failed: ", err);
+        });
+    }
+
+    function hideAll() {
+        document.getElementById('main-content').style.display = 'none';
+        document.getElementById('work-page').style.display = 'none';
+        document.getElementById('besties-page').style.display = 'none';
+    }
+
+    function showWork() { hideAll(); document.getElementById('work-page').style.display = 'block'; window.scrollTo(0,0); }
+    function showBesties() { hideAll(); document.getElementById('besties-page').style.display = 'block'; window.scrollTo(0,0); }
+    function showHome() { hideAll(); document.getElementById('main-content').style.display = 'block'; window.scrollTo(0,0); }
+
+    function updateDisplay() {
+        const trackText = document.getElementById('track-display');
+        trackText.innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3 — BITRATE: 320KBPS — `;
     }
 
     function togglePlay() {
-        const state = player.getPlayerState();
         const btn = document.getElementById('play-btn');
-        if (state == 1) { // Playing
-            player.pauseVideo();
-            btn.innerText = "PLAY";
-        } else {
-            player.playVideo();
+        if (audio.paused) {
+            audio.play();
             btn.innerText = "STOP";
+        } else {
+            audio.pause();
+            btn.innerText = "PLAY";
         }
     }
 
@@ -356,41 +445,28 @@
     }
 
     function changeTrack() {
-        player.loadVideoById(playlist[currentTrackIndex].id);
+        audio.pause();
+        audio.src = playlist[currentTrackIndex].url;
+        audio.load();
         updateDisplay();
-        document.getElementById('play-btn').innerText = "STOP";
+        audio.play().then(() => {
+            document.getElementById('play-btn').innerText = "STOP";
+        });
     }
 
-    function updateDisplay() {
-        document.getElementById('track-display').innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name} — SRC: YT_STREAM — `;
-    }
+    audio.addEventListener('ended', nextTrack);
 
-    // Volume Slider Logic
     document.getElementById('volume-slider').addEventListener('input', (e) => {
         const val = e.target.value;
-        player.setVolume(val);
-        document.getElementById('vol-pct').innerText = val + "%";
+        audio.volume = val;
+        document.getElementById('vol-pct').innerText = Math.round(val * 100) + "%";
     });
 
-    // Clock/Time Display Update
-    setInterval(() => {
-        if (player && player.getCurrentTime) {
-            const time = Math.floor(player.getCurrentTime());
-            const mins = Math.floor(time / 60);
-            const secs = (time % 60).toString().padStart(2, '0');
-            document.getElementById('time-display').innerText = `${mins}:${secs}`;
-        }
-    }, 1000);
-
-    // Navigation logic restored from newest version.htm
-    function hideAll() {
-        document.getElementById('main-content').style.display = 'none';
-        document.getElementById('work-page').style.display = 'none';
-        document.getElementById('besties-page').style.display = 'none';
-    }
-    function showWork() { hideAll(); document.getElementById('work-page').style.display = 'block'; window.scrollTo(0,0); }
-    function showBesties() { hideAll(); document.getElementById('besties-page').style.display = 'block'; window.scrollTo(0,0); }
-    function showHome() { hideAll(); document.getElementById('main-content').style.display = 'block'; window.scrollTo(0,0); }
+    audio.addEventListener('timeupdate', () => {
+        const mins = Math.floor(audio.currentTime / 60);
+        const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+        document.getElementById('time-display').innerText = `${mins}:${secs}`;
+    });
 </script>
 </body>
 </html>
