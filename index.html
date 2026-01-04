@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,40 +8,30 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg: #000000; 
-            --fg: #ffffff; 
-            --dim: #333333; 
+            --bg: #000000;
+            --fg: #ffffff;
+            --dim: #333333;
             --glow: 0 0 10px rgba(255, 255, 255, 0.2);
             --border: 1px solid var(--fg);
+            --gradient: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
         }
 
-        @keyframes typing-loop {
-            0%, 10% { width: 0; }
-            40%, 60% { width: 100%; } 
-            90%, 100% { width: 0; }   
-        }
+        body.theme-1 { --bg: #ffffff; --fg: #000000; --dim: #888888; --border: 1px solid #000000; --gradient: linear-gradient(180deg, #ffffff 0%, #cccccc 100%); }
+        body.theme-2 { --bg: #2d0036; --fg: #ffffff; --dim: #ff7be5; --border: 1px solid #ff7be5; --gradient: linear-gradient(135deg, #2d0036 0%, #ff00cc 100%); }
+        body.theme-3 { --bg: #000000; --fg: #ffffff; --dim: #333333; --border: 1px solid #ffffff; --gradient: linear-gradient(180deg, #000000 0%, #444444 100%); }
+        body.theme-4 { --bg: #001a33; --fg: #ffffff; --dim: #ff80bf; --border: 1px solid #ff80bf; --gradient: linear-gradient(135deg, #001a33 0%, #ff80bf 100%); }
+        body.theme-5 { --bg: #4a0000; --fg: #ffffff; --dim: #ffcc00; --border: 1px solid #ffcc00; --gradient: linear-gradient(180deg, #ff0000 0%, #ff8c00 100%); }
 
+        @keyframes typing-loop { 0%, 10% { width: 0; } 40%, 60% { width: 100%; } 90%, 100% { width: 0; } }
         @keyframes blink { 50% { border-color: transparent; } }
-
-        @keyframes flicker {
-            0% { opacity: 0.98; }
-            100% { opacity: 1; }
-        }
-
-        @keyframes scanline {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100vh); }
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-100%); }
-        }
+        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
         * { box-sizing: border-box; cursor: crosshair; }
 
         body {
-            background-color: var(--bg);
+            background: var(--gradient);
+            background-attachment: fixed;
             color: var(--fg);
             font-family: 'Poppins', 'JetBrains Mono', monospace;
             margin: 0;
@@ -51,55 +40,51 @@
             flex-direction: column;
             align-items: center;
             overflow-x: hidden;
-            animation: flicker 0.15s infinite;
         }
 
-        .crt-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-            z-index: 99;
-            pointer-events: none;
-        }
-
-        .scanline {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100px;
-            background: linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            z-index: 100;
-            pointer-events: none;
-            animation: scanline 8s linear infinite;
-        }
-
-        #enter-overlay {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            z-index: 1000;
+        .theme-selector {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 1001;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--fg);
         }
 
-        .container, #work-page, #besties-page { width: 100%; max-width: 800px; z-index: 1; display: none; }
+        .theme-square {
+            width: 22px;
+            height: 22px;
+            cursor: pointer;
+            border: 1px solid #fff;
+        }
+
+        .crt-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%); z-index: 99; pointer-events: none; }
+        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.05), transparent); z-index: 100; pointer-events: none; animation: scanline 8s linear infinite; }
+        #enter-overlay { position: fixed; inset: 0; background: #000; z-index: 1000; display: flex; justify-content: center; align-items: center; }
+
+        .container, #work-page, #besties-page {
+            width: 100%;
+            max-width: 900px;
+            z-index: 1;
+            display: none;
+            position: relative;
+        }
 
         .profile-header {
             display: flex;
             gap: 25px;
             margin-bottom: 30px;
             border: var(--border);
-            padding: 25px;
+            padding: 35px;
             background: rgba(5, 5, 5, 0.9);
             box-shadow: var(--glow);
             align-items: center;
         }
 
-        .pfp-wrapper {
-            width: 100px; height: 100px;
-            border: 1px solid var(--fg);
-            overflow: hidden;
-        }
-
+        .pfp-wrapper { width: 100px; height: 100px; border: 1px solid var(--fg); overflow: hidden; flex-shrink: 0; }
         .pfp { width: 100%; height: 100%; object-fit: cover; }
 
         .typewriter {
@@ -113,138 +98,54 @@
             animation: typing-loop 5s steps(15, end) infinite, blink .75s step-end infinite;
         }
 
-        .music-player {
-            border: var(--border);
-            padding: 20px;
-            margin-bottom: 30px;
-            background: #000;
-            width: 100%;
-        }
-
-        .marquee-container {
-            overflow: hidden;
-            white-space: nowrap;
-            background: var(--fg);
-            color: #000;
-            padding: 5px 0;
-            margin-bottom: 15px;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-
-        .marquee-text {
-            display: inline-block;
-            padding-left: 100%;
-            animation: marquee 15s linear infinite;
-        }
-
-        .controls-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .volume-inline {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex-grow: 1;
-            max-width: 250px;
-        }
-
-        input[type=range] { 
-            -webkit-appearance: none; 
-            flex-grow: 1; 
-            background: transparent; 
-            cursor: pointer;
-        }
+        .music-player { border: var(--border); padding: 20px; margin-bottom: 30px; background: #000; width: 100%; }
+        .marquee-container { overflow: hidden; white-space: nowrap; background: var(--fg); color: var(--bg); padding: 5px 0; margin-bottom: 15px; font-size: 0.75rem; font-weight: bold; }
+        .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
+        
+        .controls-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
+        .volume-inline { display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 250px; }
+        
+        input[type=range] { -webkit-appearance: none; flex-grow: 1; background: transparent; cursor: pointer; }
         input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--dim); }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 12px; width: 6px;
-            background: var(--fg);
-            margin-top: -5px;
-        }
+        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 6px; background: var(--fg); margin-top: -5px; }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
-
-        .box { border: var(--border); padding: 20px; background: rgba(5, 5, 5, 0.8); }
-        .box h2 { 
-            font-size: 0.75rem; margin: -20px -20px 20px -20px; 
-            background: var(--fg); color: #000;
-            padding: 5px 10px;
-            text-transform: uppercase;
-            font-weight: 800;
-        }
-
-        .social-links a { color: var(--fg); font-size: 1.5rem; transition: transform 0.3s ease; }
-        .social-links a:hover { transform: scale(1.2); color: #ffffff; }
-
-        .full { grid-column: span 2; }
-
-        .btn {
-            background: none; border: 1px solid var(--fg); color: var(--fg);
-            padding: 5px 15px; font-family: inherit; font-size: 0.7rem;
-            cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn:hover { background: var(--fg); color: #000; }
-
-        .img-content-box {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
+        .box { border: var(--border); padding: 35px; background: rgba(5, 5, 5, 0.8); }
+        .box h2 { font-size: 0.75rem; margin: -35px -35px 20px -35px; background: var(--fg); color: var(--bg); padding: 5px 10px; text-transform: uppercase; font-weight: 800; }
         
-        footer { 
-            width: 100%; text-align: center; margin-top: 60px; 
-            font-size: 0.65rem; opacity: 0.3; letter-spacing: 5px;
-        }
+        .social-links a { color: var(--fg); font-size: 1.5rem; transition: transform 0.3s ease; margin-right: 12px; }
+        .full { grid-column: span 2; }
+        
+        .btn { background: none; border: 1px solid var(--fg); color: var(--fg); padding: 5px 15px; font-family: inherit; font-size: 0.7rem; cursor: pointer; text-decoration: none; display: inline-block; }
+        .btn:hover { background: var(--fg); color: var(--bg); }
 
-        .work-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 15px;
-            width: 100%;
-        }
+        .img-content-box { display: flex; gap: 20px; align-items: flex-start; }
+        footer { width: 100%; text-align: center; margin-top: 60px; font-size: 0.65rem; opacity: 0.3; letter-spacing: 5px; }
 
-        .work-item {
-            border: var(--border);
-            padding: 15px;
-            background: rgba(5, 5, 5, 0.8);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; width: 100%; }
+        .work-item { border: var(--border); padding: 15px; background: rgba(5, 5, 5, 0.8); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+        .work-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 1px solid var(--dim); margin-bottom: 10px; background: #111; }
+        .bestie-name { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 2px; border-bottom: 1px solid var(--dim); padding-bottom: 5px; }
 
-        .work-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border: 1px solid var(--dim);
-            margin-bottom: 10px;
-            background: #111;
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .full { grid-column: span 1; }
+            .profile-header { flex-direction: column; align-items: center; text-align: center; }
+            .img-content-box { flex-direction: column; }
         }
-
-        .bestie-name {
-            font-size: 0.9rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            letter-spacing: 2px;
-            border-bottom: 1px solid var(--dim);
-            padding-bottom: 5px;
-        }
-
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .full { grid-column: span 1; } .img-content-box { flex-direction: column; } }
     </style>
 </head>
 <body>
     <div class="crt-overlay"></div>
     <div class="scanline"></div>
+
+    <div class="theme-selector">
+        <div class="theme-square" style="background: linear-gradient(#fff, #ccc);" onclick="setTheme(1)"></div>
+        <div class="theme-square" style="background: linear-gradient(#2d0036, #ff7be5);" onclick="setTheme(2)"></div>
+        <div class="theme-square" style="background: linear-gradient(#000, #fff);" onclick="setTheme(3)"></div>
+        <div class="theme-square" style="background: linear-gradient(#001a33, #ff80bf);" onclick="setTheme(4)"></div>
+        <div class="theme-square" style="background: linear-gradient(#ff0000, #ff8c00);" onclick="setTheme(5)"></div>
+    </div>
 
     <div id="enter-overlay">
         <button class="btn" onclick="initTerminal()">[ INITIALIZE_CORVETTE ]</button>
@@ -262,7 +163,7 @@
             </div>
             <div>
                 <span class="typewriter">CORV'S CORVETTE</span>
-                <p style="font-size: 0.65rem; color: var(--dim); margin: 5px 0 0 0; font-family: 'JetBrains Mono', monospace; font-style: italic; opacity: 0.8;">
+                <p style="font-size: 0.65rem; color: var(--fg); margin: 5px 0 0 0; font-family: 'JetBrains Mono', monospace; font-style: italic; opacity: 0.8;">
                     "IDK BRO"
                 </p>
                 <div class="social-links" style="margin-top: 10px;">
@@ -272,8 +173,8 @@
                     <a href="https://twitch.tv/corvxwtw"><i class="fa-brands fa-twitch"></i></a>
                     <a href="https://tiktok.com/@c0rvx"><i class="fa-brands fa-tiktok"></i></a>
                 </div>
-                <p style="font-size: 0.7rem; color: var(--fg); margin-top: 12px;">
-                    STATUS: <span style="color: #ffffff; text-shadow: 0 0 5px rgba(255,255,255,0.5);">5% ALIVE</span> 
+                <p style="font-size: 0.7rem; color: var(--fg); margin-top: 12px; font-weight: bold;">
+                    STATUS: 5% ALIVE
                 </p>
             </div>
         </header>
@@ -302,7 +203,7 @@
                 <h2>>_About me</h2>
                 <p style="font-size: 0.8rem; line-height: 1.6;">Yo, I'm corvx. Welcome to my space. I'm a creator focused on gaming, music, and sports. I spend most of my time grinding Fortnite and keeping up with the latest in the underground music scene. I love interacting with my fans. Beyond the screen, I like hanging out with family and friends. I do watch a lot of football and basketball in my free time.</p>
             </div>
-
+            
             <div class="box full">
                 <h2>>_SYSTEM_VISUAL</h2>
                 <div class="img-content-box">
@@ -310,9 +211,7 @@
                         <img src="https://i.ibb.co/twDN8T3r/Monogram-FA-Logo-by-Greenlines-Studios.jpg" alt="visual_log" class="pfp">
                     </div>
                     <div>
-                        <p style="font-size: 0.8rem; line-height: 1.6; color: var(--fg); margin-bottom: 20px;">
-                            F/A
-                        </p>
+                        <p style="font-size: 0.8rem; line-height: 1.6; color: var(--fg); margin-bottom: 20px;">F/A</p>
                         <a href="" target="_blank" style="text-decoration: none;">
                             <button class="btn">[ ACCESS_NOTHING ]</button>
                         </a>
@@ -329,7 +228,7 @@
     </div>
 
     <div id="work-page">
-        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 15px;">
+        <div style="width: 100%; display: flex; justify-content: flex-end; margin-bottom: 15px;">
             <button class="btn" onclick="showHome()">[ BACK_TO_TERMINAL ]</button>
         </div>
         <div class="box full">
@@ -337,12 +236,12 @@
             <div class="work-grid">
                 <div class="work-item">
                     <img src="https://i.ibb.co/QvfKSHgK/Screenshot-2025-12-31-225333.png" alt="Resume" class="work-img" style="aspect-ratio: 16/9;">
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Here is my resume. I use it for esports and hope to grow it. I hope esports help me become more known.</p>
+                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Here is my resume. I use it for esports and hope to grow it.</p>
                     <a href="https://docs.google.com/document/d/14T5BN-rHwo5DeOaK8Nh5VDipeazraI6CPps3qZAHnuo/edit?usp=sharing" target="_blank" class="btn">[ ACCESS_RESUME ]</a>
                 </div>
                 <div class="work-item">
                     <img src="https://i.ibb.co/chfpDgMP/Screenshot-2025-12-31-224811.png" alt="KeyzzILLA" class="work-img" style="aspect-ratio: 16/9;">
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Here is my best friend and I. Keyzz and I have been friends since the start of the year. We have worked and played a lot together, go check out his website.</p>
+                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Go check out KeyzzILLA's website.</p>
                     <a href="https://keyzzilla.com/" target="_blank" class="btn">[ ACCESS_KEYZZILLA ]</a>
                 </div>
             </div>
@@ -351,7 +250,7 @@
     </div>
 
     <div id="besties-page">
-        <div style="width: 100%; display: flex; justify-content: flex-start; margin-bottom: 15px;">
+        <div style="width: 100%; display: flex; justify-content: flex-end; margin-bottom: 15px;">
             <button class="btn" onclick="showHome()">[ BACK_TO_TERMINAL ]</button>
         </div>
         <div class="box full">
@@ -360,21 +259,16 @@
                 <div class="work-item">
                     <div class="bestie-name">[ Keyzz ]</div>
                     <img src="https://i.ibb.co/zVXTqRh0/keyzz-image.png" alt="Keyzz" class="work-img">
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Keyzz grinds with me. Wherever I go, he is there. Even though I make the calls as the IGL, he does his own thing and dominates.</p>
                     <a href="https://keyzzilla.com/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
                 </div>
-
                 <div class="work-item">
                     <div class="bestie-name">[ Ryan ]</div>
                     <img src="https://i.ibb.co/hFVpVtXq/ryan-pfp.png" alt="Ryan" class="work-img">
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">He is a psycho at coding. He is there to help me when needed. Sometimes he and Wyind can troll me forever.</p>
                     <a href="https://ryanpc.org/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
                 </div>
-
                 <div class="work-item">
                     <div class="bestie-name">[ Wyind ]</div>
                     <img src="https://i.ibb.co/d0VKDjT0/wyind-pfp.png" alt="Wyind" class="work-img">
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Although he uses Linux, TAKE HIM SERIOUS. Wyind helps me out like Ryan. He is a little older but still plays Fortnite with me and the boys.</p>
                     <a href="https://www.wyind.dev/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
                 </div>
             </div>
@@ -382,98 +276,34 @@
         <footer>[ v2.0 // CIRCLE_OF_TRUST ]</footer>
     </div>
 
-<script>
-    const playlist = [
-        { name: "4X4", url: "assets/4x4.mp3" },
-        { name: "SHAKIRA!", url: "assets/shakira.mp3" },
-        { name: "TOOK HER TO THE O", url: "assets/thtto.mp3" },
-        { name: "SS", url: "assets/ss.mp3" }
-    ];
+    <script>
+        const playlist = [ { name: "4X4", url: "assets/4x4.mp3" }, { name: "SHAKIRA!", url: "assets/shakira.mp3" }, { name: "TOOK HER TO THE O", url: "assets/thtto.mp3" }, { name: "SS", url: "assets/ss.mp3" } ];
+        let currentTrackIndex = 0;
+        let audio = new Audio(playlist[currentTrackIndex].url);
+        audio.volume = 0.15;
 
-    let currentTrackIndex = 0;
-    let audio = new Audio(playlist[currentTrackIndex].url);
-    audio.volume = 0.15;
-
-    function initTerminal() {
-        document.getElementById('enter-overlay').style.display = 'none';
-        document.getElementById('main-content').style.display = 'block';
-        updateDisplay();
+        function setTheme(n) { document.body.className = 'theme-' + n; }
+        function initTerminal() { document.getElementById('enter-overlay').style.display = 'none'; document.getElementById('main-content').style.display = 'block'; updateDisplay(); }
+        function updateDisplay() { document.getElementById('track-display').innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3 — `; }
+        function togglePlay() { const btn = document.getElementById('play-btn'); if (audio.paused) { audio.play(); btn.innerText = "STOP"; } else { audio.pause(); btn.innerText = "PLAY"; } }
+        function nextTrack() { currentTrackIndex = (currentTrackIndex + 1) % playlist.length; changeTrack(); }
+        function prevTrack() { currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length; changeTrack(); }
+        function changeTrack() { const wasPlaying = !audio.paused; audio.pause(); audio.src = playlist[currentTrackIndex].url; updateDisplay(); if (wasPlaying) audio.play(); }
         
-        fetch('https://ipapi.co/json/').then(r => r.json()).then(d => {
-            document.getElementById('user-ip').innerText = d.ip;
-        }).catch(() => { document.getElementById('user-ip').innerText = "PROTECTED"; });
-    }
+        function hideAll() { document.getElementById('main-content').style.display = 'none'; document.getElementById('work-page').style.display = 'none'; document.getElementById('besties-page').style.display = 'none'; }
+        function showWork() { hideAll(); document.getElementById('work-page').style.display = 'block'; window.scrollTo(0,0); }
+        function showBesties() { hideAll(); document.getElementById('besties-page').style.display = 'block'; window.scrollTo(0,0); }
+        function showHome() { hideAll(); document.getElementById('main-content').style.display = 'block'; window.scrollTo(0,0); }
 
-    function updateDisplay() {
-        const trackText = document.getElementById('track-display');
-        trackText.innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3 — `;
-    }
-
-    function togglePlay() {
-        const btn = document.getElementById('play-btn');
-        if (audio.paused) {
-            audio.play();
-            btn.innerText = "STOP";
-        } else {
-            audio.pause();
-            btn.innerText = "PLAY";
-        }
-    }
-
-    function nextTrack() {
-        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
-        changeTrack();
-    }
-
-    function prevTrack() {
-        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
-        changeTrack();
-    }
-
-    function changeTrack() {
-        const wasPlaying = !audio.paused;
-        audio.pause();
-        audio.src = playlist[currentTrackIndex].url;
-        updateDisplay();
-        if (wasPlaying) audio.play();
-    }
-
-    function hideAll() {
-        document.getElementById('main-content').style.display = 'none';
-        document.getElementById('work-page').style.display = 'none';
-        document.getElementById('besties-page').style.display = 'none';
-    }
-    function showWork() { hideAll(); document.getElementById('work-page').style.display = 'block'; window.scrollTo(0,0); }
-    function showBesties() { hideAll(); document.getElementById('besties-page').style.display = 'block'; window.scrollTo(0,0); }
-    function showHome() { hideAll(); document.getElementById('main-content').style.display = 'block'; window.scrollTo(0,0); }
-
-    audio.addEventListener('ended', nextTrack);
-
-    document.getElementById('volume-slider').addEventListener('input', (e) => {
-        const val = e.target.value;
-        audio.volume = val;
-        document.getElementById('vol-pct').innerText = Math.round(val * 100) + "%";
-    });
-
-    audio.addEventListener('timeupdate', () => {
-        const mins = Math.floor(audio.currentTime / 60);
-        const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-        document.getElementById('time-display').innerText = `${mins}:${secs}`;
-    });
-
-    audio.addEventListener('ended', nextTrack);
-
-    document.getElementById('volume-slider').addEventListener('input', (e) => {
-        const val = e.target.value;
-        audio.volume = val;
-        document.getElementById('vol-pct').innerText = Math.round(val * 100) + "%";
-    });
-
-    audio.addEventListener('timeupdate', () => {
-        const mins = Math.floor(audio.currentTime / 60);
-        const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
-        document.getElementById('time-display').innerText = `${mins}:${secs}`;
-    });
-</script>
+        audio.addEventListener('timeupdate', () => {
+            const mins = Math.floor(audio.currentTime / 60);
+            const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+            document.getElementById('time-display').innerText = `${mins}:${secs}`;
+        });
+        document.getElementById('volume-slider').addEventListener('input', (e) => {
+            audio.volume = e.target.value;
+            document.getElementById('vol-pct').innerText = Math.round(e.target.value * 100) + "%";
+        });
+    </script>
 </body>
 </html>
