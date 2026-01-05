@@ -119,7 +119,6 @@
         .btn { background: none; border: 1px solid var(--fg); color: var(--fg); padding: 5px 15px; font-family: inherit; font-size: 0.7rem; cursor: pointer; text-decoration: none; display: inline-block; }
         .btn:hover { background: var(--fg); color: var(--bg); }
 
-        .img-content-box { display: flex; gap: 20px; align-items: flex-start; }
         footer { width: 100%; text-align: center; margin-top: 60px; font-size: 0.65rem; opacity: 0.3; letter-spacing: 5px; }
 
         .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; width: 100%; }
@@ -131,7 +130,6 @@
             .grid { grid-template-columns: 1fr; }
             .full { grid-column: span 1; }
             .profile-header { flex-direction: column; align-items: center; text-align: center; }
-            .img-content-box { flex-direction: column; }
         }
     </style>
 </head>
@@ -206,14 +204,20 @@
             
             <div class="box full">
                 <h2>>_SYSTEM_VISUAL</h2>
-                <div class="img-content-box">
-                    <div class="pfp-wrapper" style="width: 150px; height: 150px; flex-shrink: 0; box-shadow: var(--glow);">
-                        <img src="https://i.ibb.co/twDN8T3r/Monogram-FA-Logo-by-Greenlines-Studios.jpg" alt="visual_log" class="pfp">
+                <div style="display: grid; grid-template-columns: 1fr 1px 1fr; align-items: center; gap: 20px;">
+                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+                        <div class="pfp-wrapper" style="width: 150px; height: 150px; flex-shrink: 0; box-shadow: var(--glow);">
+                            <img src="https://i.ibb.co/twDN8T3r/Monogram-FA-Logo-by-Greenlines-Studios.jpg" alt="visual_log" class="pfp">
+                        </div>
+                        <p style="font-size: 0.8rem; line-height: 1.6; color: var(--fg); margin-top: 10px;">F/A. Currently looking for an esports team  to join and represent.</p>
                     </div>
-                    <div>
-                        <p style="font-size: 0.8rem; line-height: 1.6; color: var(--fg); margin-bottom: 20px;">F/A</p>
-                        <a href="" target="_blank" style="text-decoration: none;">
-                            <button class="btn">[ ACCESS_NOTHING ]</button>
+                    
+                    <div style="background: var(--dim); width: 1px; height: 100px;"></div>
+
+                    <div style="text-align: center;">
+                        <h3 style="font-size: 0.75rem; text-transform: uppercase; margin-top: 0; margin-bottom: 10px;">MY STATS</h3>
+                        <a href="https://fortnitetracker.com/profile/all/mtz%20corviana." target="_blank" style="text-decoration: none;">
+                            <button class="btn" style="width: 80%;">[ ACCESS_STATS ]</button>
                         </a>
                     </div>
                 </div>
