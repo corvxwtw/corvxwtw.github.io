@@ -1,135 +1,102 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Corv's Corvette.</title>
+    <title>Corv's Corvette</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600&family=Poppins:wght@400;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --bg: #000000;
-            --fg: #ffffff;
-            --dim: #333333;
-            --glow: 0 0 10px rgba(255, 255, 255, 0.2);
-            --border: 1px solid var(--fg);
-            --gradient: linear-gradient(180deg, #000000 0%, #1a1a1a 100%);
+            --bg: #030305;
+            --panel: rgba(15, 15, 20, 0.9);
+            --accent: #ffffff;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        body.theme-1 { --bg: #ffffff; --fg: #000000; --dim: #888888; --border: 1px solid #000000; --gradient: linear-gradient(180deg, #ffffff 0%, #cccccc 100%); }
-        body.theme-2 { --bg: #2d0036; --fg: #ffffff; --dim: #ff7be5; --border: 1px solid #ff7be5; --gradient: linear-gradient(135deg, #2d0036 0%, #ff00cc 100%); }
-        body.theme-3 { --bg: #000000; --fg: #ffffff; --dim: #333333; --border: 1px solid #ffffff; --gradient: linear-gradient(180deg, #000000 0%, #444444 100%); }
-        body.theme-4 { --bg: #001a33; --fg: #ffffff; --dim: #ff80bf; --border: 1px solid #ff80bf; --gradient: linear-gradient(135deg, #001a33 0%, #ff80bf 100%); }
-        body.theme-5 { --bg: #4a0000; --fg: #ffffff; --dim: #ffcc00; --border: 1px solid #ffcc00; --gradient: linear-gradient(180deg, #ff0000 0%, #ff8c00 100%); }
-
-        @keyframes typing-loop { 0%, 10% { width: 0; } 40%, 60% { width: 100%; } 90%, 100% { width: 0; } }
-        @keyframes blink { 50% { border-color: transparent; } }
-        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-        * { box-sizing: border-box; cursor: crosshair; }
+        * { 
+            box-sizing: border-box; 
+            cursor: crosshair; 
+            transition: all 0.2s ease;
+            font-family: 'Poppins', sans-serif;
+            text-transform: lowercase;
+        }
 
         body {
-            background: var(--gradient);
-            background-attachment: fixed;
-            color: var(--fg);
-            font-family: 'Poppins', 'JetBrains Mono', monospace;
-            margin: 0;
-            padding: 40px 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+            color: #fff;
+            margin: 0; height: 100vh; display: flex; overflow: hidden;
         }
 
-        .theme-selector {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            display: flex;
-            gap: 8px;
-            padding: 8px;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--fg);
+        /* CRT Effects */
+        .crt-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%); z-index: 999; pointer-events: none; }
+        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.02), transparent); z-index: 1000; pointer-events: none; animation: scanline 8s linear infinite; }
+        @keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100vh); } }
+
+        /* Sidebar */
+        .sidebar {
+            width: 80px; background: var(--panel); backdrop-filter: blur(30px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; flex-direction: column; padding: 40px 10px; z-index: 100;
+            overflow: hidden; flex-shrink: 0;
+        }
+        .sidebar:hover { width: 240px; padding: 40px 20px; }
+
+        .nav-btn {
+            background: transparent; border: 1px solid transparent; color: #777;
+            text-align: left; padding: 15px; font-size: 0.9rem;
+            cursor: pointer; border-radius: 12px; margin-bottom: 10px;
+            display: flex; align-items: center; gap: 20px; white-space: nowrap; width: 100%;
         }
 
-        .theme-square {
-            width: 22px;
-            height: 22px;
-            cursor: pointer;
-            border: 1px solid #fff;
-        }
-
-        .crt-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%); z-index: 99; pointer-events: none; }
-        .scanline { position: fixed; top: 0; left: 0; width: 100%; height: 100px; background: linear-gradient(0deg, transparent, rgba(255, 255, 255, 0.05), transparent); z-index: 100; pointer-events: none; animation: scanline 8s linear infinite; }
-        #enter-overlay { position: fixed; inset: 0; background: #000; z-index: 1000; display: flex; justify-content: center; align-items: center; }
-
-        .container, #work-page, #besties-page {
-            width: 100%;
-            max-width: 900px;
-            z-index: 1;
-            display: none;
-            position: relative;
-        }
-
-        .profile-header {
-            display: flex;
-            gap: 25px;
-            margin-bottom: 30px;
-            border: var(--border);
-            padding: 35px;
-            background: rgba(5, 5, 5, 0.9);
-            box-shadow: var(--glow);
-            align-items: center;
-        }
-
-        .pfp-wrapper { width: 100px; height: 100px; border: 1px solid var(--fg); overflow: hidden; flex-shrink: 0; }
-        .pfp { width: 100%; height: 100%; object-fit: cover; }
-
-        .typewriter {
-            display: block;
-            overflow: hidden;
-            white-space: nowrap;
-            border-right: .15em solid var(--fg);
-            font-size: 1.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            animation: typing-loop 5s steps(15, end) infinite, blink .75s step-end infinite;
-        }
-
-        .music-player { border: var(--border); padding: 20px; margin-bottom: 30px; background: #000; width: 100%; }
-        .marquee-container { overflow: hidden; white-space: nowrap; background: var(--fg); color: var(--bg); padding: 5px 0; margin-bottom: 15px; font-size: 0.75rem; font-weight: bold; }
-        .marquee-text { display: inline-block; padding-left: 100%; animation: marquee 15s linear infinite; }
+        .nav-btn i { min-width: 25px; text-align: center; font-size: 1.2rem; }
+        .nav-btn span { opacity: 0; pointer-events: none; font-weight: 800; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; }
+        .sidebar:hover .nav-btn span { opacity: 1; pointer-events: auto; }
         
-        .controls-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; }
-        .volume-inline { display: flex; align-items: center; gap: 8px; flex-grow: 1; max-width: 250px; }
-        
-        input[type=range] { -webkit-appearance: none; flex-grow: 1; background: transparent; cursor: pointer; }
-        input[type=range]::-webkit-slider-runnable-track { height: 2px; background: var(--dim); }
-        input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 12px; width: 6px; background: var(--fg); margin-top: -5px; }
+        .nav-btn:hover, .nav-btn.active { color: #fff; background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.3); }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; width: 100%; }
-        .box { border: var(--border); padding: 35px; background: rgba(5, 5, 5, 0.8); }
-        .box h2 { font-size: 0.75rem; margin: -35px -35px 20px -35px; background: var(--fg); color: var(--bg); padding: 5px 10px; text-transform: uppercase; font-weight: 800; }
-        
-        .social-links a { color: var(--fg); font-size: 1.5rem; transition: transform 0.3s ease; margin-right: 12px; }
-        .full { grid-column: span 2; }
-        
-        .btn { background: none; border: 1px solid var(--fg); color: var(--fg); padding: 5px 15px; font-family: inherit; font-size: 0.7rem; cursor: pointer; text-decoration: none; display: inline-block; }
-        .btn:hover { background: var(--fg); color: var(--bg); }
+        /* Viewport */
+        .viewport { flex-grow: 1; padding: 40px; overflow-y: auto; position: relative; }
+        .view { display: none; }
+        .view.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        footer { width: 100%; text-align: center; margin-top: 60px; font-size: 0.65rem; opacity: 0.3; letter-spacing: 5px; }
+        /* Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .glass-card {
+            background: var(--glass); border: var(--border); border-radius: 20px;
+            padding: 25px; position: relative; overflow: hidden; backdrop-filter: blur(10px);
+        }
+        .glass-card h2 { 
+            font-size: 0.65rem; margin: -25px -25px 20px -25px; background: #fff; 
+            color: #000; padding: 5px 15px; text-transform: uppercase; font-weight: 800; 
+        }
 
-        .work-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 15px; width: 100%; }
-        .work-item { border: var(--border); padding: 15px; background: rgba(5, 5, 5, 0.8); text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
-        .work-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; border: 1px solid var(--dim); margin-bottom: 10px; background: #111; }
-        .bestie-name { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 2px; border-bottom: 1px solid var(--dim); padding-bottom: 5px; }
+        .card-img { width: 100%; height: 200px; border-radius: 12px; margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.1); object-fit: cover; background: #111; }
 
-        @media (max-width: 600px) {
-            .grid { grid-template-columns: 1fr; }
-            .full { grid-column: span 1; }
-            .profile-header { flex-direction: column; align-items: center; text-align: center; }
+        .music-bar {
+            background: var(--glass); border: var(--border); border-radius: 15px;
+            padding: 15px 25px; margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .social-links a { color: #fff; font-size: 1.2rem; margin-right: 15px; opacity: 0.6; }
+        .social-links a:hover { opacity: 1; transform: translateY(-2px); }
+
+        .btn { 
+            background: none; border: 1px solid #fff; color: #fff; padding: 8px 18px; 
+            font-size: 0.7rem; cursor: pointer; text-decoration: none; font-weight: bold; text-transform: uppercase;
+        }
+        .btn:hover { background: #fff; color: #000; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; height: 70px; flex-direction: row; position: fixed; bottom: 0; left: 0; padding: 10px; border-right: none; border-top: var(--border); justify-content: space-around; }
+            .sidebar:hover { width: 100%; }
+            .nav-btn span { display: none; }
+            .viewport { padding: 20px; padding-bottom: 100px; }
         }
     </style>
 </head>
@@ -137,177 +104,167 @@
     <div class="crt-overlay"></div>
     <div class="scanline"></div>
 
-    <div class="theme-selector">
-        <div class="theme-square" style="background: linear-gradient(#fff, #ccc);" onclick="setTheme(1)"></div>
-        <div class="theme-square" style="background: linear-gradient(#2d0036, #ff7be5);" onclick="setTheme(2)"></div>
-        <div class="theme-square" style="background: linear-gradient(#000, #fff);" onclick="setTheme(3)"></div>
-        <div class="theme-square" style="background: linear-gradient(#001a33, #ff80bf);" onclick="setTheme(4)"></div>
-        <div class="theme-square" style="background: linear-gradient(#ff0000, #ff8c00);" onclick="setTheme(5)"></div>
-    </div>
-
-    <div id="enter-overlay">
-        <button class="btn" onclick="initTerminal()">[ INITIALIZE_CORVETTE ]</button>
-    </div>
-
-    <div class="container" id="main-content">
-        <div style="width: 100%; display: flex; justify-content: flex-end; gap: 10px; margin-bottom: 15px;">
-            <button class="btn" onclick="showBesties()">[ MY BESTIES ]</button>
-            <button class="btn" onclick="showWork()">[ MY WORK ]</button>
+    <aside class="sidebar">
+        <div style="margin-bottom: 40px; text-align: center;">
+            <img src="https://i.ibb.co/LXVw70PM/w-black.png" style="width: 45px; height: 45px; border: 1px solid #fff;">
         </div>
+        <nav>
+            <button class="nav-btn active" onclick="showTab('home', this)"><i class="fa-solid fa-terminal"></i> <span>Terminal</span></button>
+            <button class="nav-btn" onclick="showTab('work', this)"><i class="fa-solid fa-trophy"></i> <span>Achievements</span></button>
+            <button class="nav-btn" onclick="showTab('besties', this)"><i class="fa-solid fa-users"></i> <span>Circle</span></button>
+            <button class="nav-btn" onclick="showTab('custom', this)"><i class="fa-solid fa-microchip"></i> <span>Setup and Sens</span></button>
+        </nav>
+    </aside>
 
-        <header class="profile-header">
-            <div class="pfp-wrapper">
-                <img src="https://i.ibb.co/LXVw70PM/w-black.png" alt="pfp" class="pfp">
-            </div>
-            <div>
-                <span class="typewriter">CORV'S CORVETTE</span>
-                <p style="font-size: 0.65rem; color: var(--fg); margin: 5px 0 0 0; font-family: 'JetBrains Mono', monospace; font-style: italic; opacity: 0.8;">
-                    "IDK BRO"
-                </p>
-                <div class="social-links" style="margin-top: 10px;">
-                    <a href="https://discord.gg/73527jvJgv"><i class="fa-brands fa-discord"></i></a>
-                    <a href="https://x.com/corvxwtw"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://youtube.com/@corvxwtw"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="https://twitch.tv/corvxwtw"><i class="fa-brands fa-twitch"></i></a>
-                    <a href="https://tiktok.com/@c0rvx"><i class="fa-brands fa-tiktok"></i></a>
+    <main class="viewport">
+        <div class="music-bar">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;">
+                <div id="track-display">SYSTEM_AUDIO: OFFLINE</div>
+                <div style="margin-top: 8px; display: flex; gap: 15px;">
+                    <i class="fa-solid fa-backward" onclick="prevTrack()" style="cursor: pointer;"></i>
+                    <i class="fa-solid fa-play" id="play-btn" onclick="togglePlay()" style="cursor: pointer;"></i>
+                    <i class="fa-solid fa-forward" onclick="nextTrack()" style="cursor: pointer;"></i>
                 </div>
-                <p style="font-size: 0.7rem; color: var(--fg); margin-top: 12px; font-weight: bold;">
-                    STATUS: 5% ALIVE
-                </p>
             </div>
-        </header>
-
-        <div class="music-player">
-            <div class="marquee-container">
-                <div class="marquee-text" id="track-display">SYSTEM_AUDIO: OFFLINE — </div>
-            </div>
-            <div class="controls-row">
-                <div style="display: flex; gap: 8px;">
-                    <button class="btn" onclick="prevTrack()"><i class="fa-solid fa-backward"></i></button>
-                    <button class="btn" onclick="togglePlay()" id="play-btn">PLAY</button>
-                    <button class="btn" onclick="nextTrack()"><i class="fa-solid fa-forward"></i></button>
-                </div>
-                <div class="volume-inline">
-                    <span style="font-size: 0.6rem; opacity: 0.8;">VOL</span>
-                    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.15">
-                    <span id="vol-pct" style="min-width: 35px; font-size: 0.7rem; text-align: right;">15%</span>
-                </div>
-                <div style="font-size: 0.7rem; font-family: 'JetBrains Mono', monospace;" id="time-display">00:00</div>
+            <div style="text-align: right;">
+                <span id="time-display" style="font-family: 'JetBrains Mono'; font-size: 0.7rem; opacity: 0.5;">00:00</span>
+                <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.15" style="display: block; width: 100px; margin-top: 5px;">
             </div>
         </div>
 
-        <div class="grid">
-            <div class="box full">
-                <h2>>_About me</h2>
-                <p style="font-size: 0.8rem; line-height: 1.6;">Yo, I'm corvx. Welcome to my space. I'm a creator focused on gaming, music, and sports. I spend most of my time grinding Fortnite and keeping up with the latest in the underground music scene. I love interacting with my fans. Beyond the screen, I like hanging out with family and friends. I do watch a lot of football and basketball in my free time.</p>
-            </div>
-            
-            <div class="box full">
-                <h2>>_SYSTEM_VISUAL</h2>
-                <div style="display: grid; grid-template-columns: 1fr 1px 1fr; align-items: center; gap: 20px;">
-                    <div style="display: flex; flex-direction: column; align-items: center; text-align: center;">
-                        <div class="pfp-wrapper" style="width: 150px; height: 150px; flex-shrink: 0; box-shadow: var(--glow);">
-                            <img src="https://i.ibb.co/wh60GnLg/fa.png" alt="visual_log" class="pfp">
+        <div id="view-home" class="view active">
+            <div class="grid">
+                <div class="glass-card" style="grid-column: span 2;">
+                    <div style="display: flex; gap: 30px; align-items: center;">
+                        <img src="https://i.ibb.co/LXVw70PM/w-black.png" style="width: 120px; height: 120px; border: 1px solid #fff;">
+                        <div>
+                            <h1 style="margin: 0; font-size: 2.5rem; font-weight: 800; text-transform: uppercase;">Corv's Corvette</h1>
+                            <p style="font-family: 'JetBrains Mono'; font-style: italic; opacity: 0.7; margin: 5px 0;">"IDK BRO"</p>
+                            <div class="social-links" style="margin-top: 15px;">
+                                <a href="https://discord.gg/73527jvJgv"><i class="fa-brands fa-discord"></i></a>
+                                <a href="https://x.com/corvxwtw"><i class="fa-brands fa-x-twitter"></i></a>
+                                <a href="https://youtube.com/@corvxwtw"><i class="fa-brands fa-youtube"></i></a>
+                                <a href="https://twitch.tv/corvxwtw"><i class="fa-brands fa-twitch"></i></a>
+                                <a href="https://tiktok.com/@corvxwtw"><i class="fa-brands fa-tiktok"></i></a>
+                            </div>
                         </div>
-                        <p style="font-size: 0.8rem; line-height: 1.6; color: var(--fg); margin-top: 10px;">F/a</p>
-                    </div>
-                    
-                    <div style="background: var(--dim); width: 1px; height: 100px;"></div>
-
-                    <div style="text-align: center;">
-                        <h3 style="font-size: 0.75rem; text-transform: uppercase; margin-top: 0; margin-bottom: 10px;">MY STATS</h3>
-                        <a href="https://fortnitetracker.com/profile/all/void%20corvx%c7%83" target="_blank" style="text-decoration: none;">
-                            <button class="btn" style="width: 80%;">[ ACCESS_STATS ]</button>
-                        </a>
                     </div>
                 </div>
+                <div class="glass-card" style="grid-column: span 2;">
+                    <h2>>_About Me</h2>
+                    <p style="font-size: 0.85rem; line-height: 1.7; opacity: 0.9;">Yo, I'm corvx. Welcome to my space. I'm a creator focused on gaming, music, and sports. I spend most of my time grinding Fortnite and keeping up with the latest in the underground music scene. I love interacting with my fans.</p>
+                </div>
+                <div class="glass-card">
+                    <h2>>_System_Visual</h2>
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <img src="https://i.ibb.co/wh60GnLg/fa.png" style="width: 80px; height: 80px; border-radius: 50%; border: 1px solid #fff;">
+                        <div>
+                            <div style="font-weight: 800; font-size: 1.1rem;">F/a</div>
+                            <div style="font-size: 0.7rem; margin: 5px 0 10px; font-weight: bold;">STATUS: 5% ALIVE</div>
+                            <a href="https://fortnitetracker.com/profile/all/void%20corvx%c7%83" target="_blank" class="btn" style="font-size: 0.6rem;">[ Access Stats ]</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card">
+                    <h2>>Hardware_Log</h2>
+                    <p style="font-family: 'JetBrains Mono'; font-size: 0.75rem; line-height: 1.8;">CPU: i9-13900k <br> GPU: RTX 3070 TI <br> RAM: 32GB DDR5</p>
+                </div>
             </div>
+        </div>
 
-            <div class="box">
-                <h2>>HARDWARE_LOG</h2>
-                <p style="font-size: 0.7rem;">CPU: i9-13900k <br> GPU: RTX 3070 TI <br> RAM: 32GB DDR5</p>
+        <div id="view-work" class="view">
+            <div class="grid">
+                <div class="glass-card" style="grid-column: span 2;">
+                    <h2>>Achievements</h2>
+                    <img src="https://i.ibb.co/QvfKSHgK/Screenshot-2025-12-31-225333.png" class="card-img" style="height: auto; max-height: 400px; object-fit: contain;">
+                    <p style="font-size: 0.8rem; opacity: 0.7; margin-bottom: 20px;">Here is my resume. I use it for esports and hope to grow it.</p>
+                    <a href="https://docs.google.com/document/d/14T5BN-rHwo5DeOaK8Nh5VDipeazraI6CPps3qZAHnuo/edit?usp=sharing" target="_blank" class="btn">[ Access Resume ]</a>
+                </div>
             </div>
         </div>
-        <footer>[ v2.58 ]</footer>
-    </div>
 
-    <div id="work-page">
-        <div style="width: 100%; display: flex; justify-content: flex-end; margin-bottom: 15px;">
-            <button class="btn" onclick="showHome()">[ BACK_TO_TERMINAL ]</button>
-        </div>
-        <div class="box full">
-            <h2>>Achievements</h2>
-            <div class="work-grid">
-                <div class="work-item">
-                    <img src="https://i.ibb.co/QvfKSHgK/Screenshot-2025-12-31-225333.png" alt="Resume" class="work-img" style="aspect-ratio: 16/9;">
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;">Here is my resume. I use it for esports and hope to grow it.</p>
-                    <a href="https://docs.google.com/document/d/14T5BN-rHwo5DeOaK8Nh5VDipeazraI6CPps3qZAHnuo/edit?usp=sharing" target="_blank" class="btn">[ ACCESS_RESUME ]</a>
-                </div>
-                <div class="work-item">
-                    <img src="" alt="Blank." class="work-img" style="aspect-ratio: 16/9;">
-                    <p style="font-size: 0.6rem; margin-bottom: 15px;"></p>
-                    <a href="https://keyzzilla.com/" target="_blank" class="btn"></a>
+        <div id="view-besties" class="view">
+            <div class="grid">
+                <div class="glass-card">
+                    <img src="https://i.ibb.co/rGMmVqc6/download.png" class="card-img">
+                    <div style="font-weight: 800; text-transform: uppercase; margin-bottom: 10px;">[ Unknown ]</div>
                 </div>
             </div>
         </div>
-        <footer>[ v2.0 // CORVETTE ACHIEVEMENTS ]</footer>
-    </div>
 
-    <div id="besties-page">
-        <div style="width: 100%; display: flex; justify-content: flex-end; margin-bottom: 15px;">
-            <button class="btn" onclick="showHome()">[ BACK_TO_TERMINAL ]</button>
-        </div>
-        <div class="box full">
-            <h2>>_My Besties</h2>
-            <div class="work-grid">
-                <div class="work-item">
-                    <div class="bestie-name">[ Keyzz ]</div>
-                    <img src="https://i.ibb.co/zVXTqRh0/keyzz-image.png" alt="Keyzz" class="work-img">
-                    <a href="https://keyzzilla.com/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
+        <div id="view-custom" class="view">
+            <div class="grid">
+                <div class="glass-card">
+                    <h2>>_Peripheral_01</h2>
+                    <img src="https://i.ibb.co/zhFZpg4z/images-1.jpg" class="card-img" onerror="this.src='https://via.placeholder.com/400x250/111114/FFFFFF?text=MOUSE_IMG'">
+                    <p style="font-size: 0.8rem; opacity: 0.8; line-height: 1.5;">primary mouse: logitech g pro superlight 2<br>dpi: 1600</p>
                 </div>
-                <div class="work-item">
-                    <div class="bestie-name">[ Ryan ]</div>
-                    <img src="https://i.ibb.co/hFVpVtXq/ryan-pfp.png" alt="Ryan" class="work-img">
-                    <a href="https://ryanpc.org/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
+                <div class="glass-card">
+                    <h2>>_Peripheral_02</h2>
+                    <img src="https://i.ibb.co/1JY14dms/apex-pro-tkl-wl-img-buy-01.webp" class="card-img" onerror="this.src='https://via.placeholder.com/400x250/111114/FFFFFF?text=KEYBOARD_IMG'">
+                    <p style="font-size: 0.8rem; opacity: 0.8; line-height: 1.5;">keyboard: apex pro tkl 2023<br>switches: omnipoint switches</p>
                 </div>
-                <div class="work-item">
-                    <div class="bestie-name">[ Wyind ]</div>
-                    <img src="https://i.ibb.co/d0VKDjT0/wyind-pfp.png" alt="Wyind" class="work-img">
-                    <a href="https://www.wyind.dev/" target="_blank" class="btn">[ ACCESS_SITE ]</a>
+                <div class="glass-card">
+                    <h2>>_Sens_Logs</h2>
+                    <img src="https://i.ibb.co/Rpk4v3Wk/Screenshot-2026-02-19-173016.png" class="card-img" onerror="this.src='https://via.placeholder.com/400x250/111114/FFFFFF?text=SENS_IMG'">
+                    <p style="font-size: 0.8rem; opacity: 0.8; line-height: 1.5;">x-axis: 2.9%<br>y-axis: 2.9%<br>targeting: 55.555</p>
+                </div>
+                <div class="glass-card">
+                    <h2>>_Visual_Settings</h2>
+                    <img src="https://i.ibb.co/vCf3BHvH/Screenshot-2026-02-19-173239.png" class="card-img" onerror="this.src='https://via.placeholder.com/400x250/111114/FFFFFF?text=SETTINGS_IMG'">
+                    <p style="font-size: 0.8rem; opacity: 0.8; line-height: 1.5;">resolution: 1550x1080<br>refresh rate: 170</p>
+                </div>
+                <div class="glass-card">
+                    <h2>>_Audio_Setup</h2>
+                    <img src="https://i.ibb.co/4n2yR89s/Screenshot-2026-02-19-173345.png" class="card-img" onerror="this.src='https://via.placeholder.com/400x250/111114/FFFFFF?text=AUDIO_IMG'">
+                    <p style="font-size: 0.8rem; opacity: 0.8; line-height: 1.5;">headset: Sony WH-CH520</p>
                 </div>
             </div>
         </div>
-        <footer>[ v2.0 // CIRCLE_OF_TRUST ]</footer>
-    </div>
+    </main>
 
     <script>
-        const playlist = [ { name: "4X4", url: "assets/4x4.mp3" }, { name: "SHAKIRA!", url: "assets/shakira.mp3" }, { name: "TOOK HER TO THE O", url: "assets/thtto.mp3" }, { name: "SS", url: "assets/ss.mp3" } ];
+        const playlist = [ 
+            { name: "4X4", url: "assets/4x4.mp3" }, 
+            { name: "SHAKIRA!", url: "assets/shakira.mp3" }, 
+            { name: "TOOK HER TO THE O", url: "assets/thtto.mp3" }, 
+            { name: "SS", url: "assets/ss.mp3" } 
+        ];
         let currentTrackIndex = 0;
         let audio = new Audio(playlist[currentTrackIndex].url);
         audio.volume = 0.15;
 
-        function setTheme(n) { document.body.className = 'theme-' + n; }
-        function initTerminal() { document.getElementById('enter-overlay').style.display = 'none'; document.getElementById('main-content').style.display = 'block'; updateDisplay(); }
-        function updateDisplay() { document.getElementById('track-display').innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3 — `; }
-        function togglePlay() { const btn = document.getElementById('play-btn'); if (audio.paused) { audio.play(); btn.innerText = "STOP"; } else { audio.pause(); btn.innerText = "PLAY"; } }
+        function showTab(id, btn) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('view-' + id).classList.add('active');
+            if(btn) btn.classList.add('active');
+        }
+
+        function togglePlay() { 
+            const btn = document.getElementById('play-btn'); 
+            if (audio.paused) { audio.play(); btn.className = "fa-solid fa-pause"; } 
+            else { audio.pause(); btn.className = "fa-solid fa-play"; } 
+        }
+
+        function updateDisplay() { document.getElementById('track-display').innerText = `SYSTEM_AUDIO: ${playlist[currentTrackIndex].name}.MP3`; }
         function nextTrack() { currentTrackIndex = (currentTrackIndex + 1) % playlist.length; changeTrack(); }
         function prevTrack() { currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length; changeTrack(); }
-        function changeTrack() { const wasPlaying = !audio.paused; audio.pause(); audio.src = playlist[currentTrackIndex].url; updateDisplay(); if (wasPlaying) audio.play(); }
         
-        function hideAll() { document.getElementById('main-content').style.display = 'none'; document.getElementById('work-page').style.display = 'none'; document.getElementById('besties-page').style.display = 'none'; }
-        function showWork() { hideAll(); document.getElementById('work-page').style.display = 'block'; window.scrollTo(0,0); }
-        function showBesties() { hideAll(); document.getElementById('besties-page').style.display = 'block'; window.scrollTo(0,0); }
-        function showHome() { hideAll(); document.getElementById('main-content').style.display = 'block'; window.scrollTo(0,0); }
+        function changeTrack() { 
+            const wasPlaying = !audio.paused; 
+            audio.pause(); audio.src = playlist[currentTrackIndex].url; 
+            updateDisplay(); 
+            if (wasPlaying) { audio.play(); document.getElementById('play-btn').className = "fa-solid fa-pause"; }
+        }
 
         audio.addEventListener('timeupdate', () => {
             const mins = Math.floor(audio.currentTime / 60);
             const secs = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
             document.getElementById('time-display').innerText = `${mins}:${secs}`;
         });
-        document.getElementById('volume-slider').addEventListener('input', (e) => {
-            audio.volume = e.target.value;
-            document.getElementById('vol-pct').innerText = Math.round(e.target.value * 100) + "%";
-        });
+        document.getElementById('volume-slider').addEventListener('input', (e) => { audio.volume = e.target.value; });
+        updateDisplay();
     </script>
 </body>
 </html>
