@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CORVX // HYPER-VORTEX</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;500;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="power-overlay">
+        <div style="font-family: 'JetBrains Mono'; color: var(--text-primary); font-size: 0.7rem; letter-spacing: 4px;">
+            SYSTEM_BOOTING...</div>
+    </div>
+
+    <div class="vortex-bg"></div>
+
+    <header>
+        <div class="brand-box">
+            <img src="assets/corv.png" class="brand-logo" style="width: 40px; opacity: 0.8;">
+            <h1>CORVX</h1>
+        </div>
+        <nav>
+            <button class="nav-link active" onclick="nav('home', this)">HUB</button>
+            <button class="nav-link" onclick="nav('media', this)">MEDIA</button>
+            <button class="nav-link" onclick="nav('gear', this)">GEAR</button>
+            <button class="nav-link" onclick="nav('circle', this)">CIRCLE</button>
+        </nav>
+        <div
+            style="width: 150px; text-align: right; display: flex; justify-content: flex-end; gap: 15px; align-items: center;">
+            <i class="fa-solid fa-gear settings-toggle" onclick="toggleSettingsPanel()"
+                style="opacity: 0.6; cursor: pointer; transition: all 0.3s; font-size: 1.2rem;"></i>
+            <i class="fa-solid fa-moon theme-toggle" onclick="toggleTheme()"
+                style="opacity: 0.6; cursor: pointer; transition: all 0.3s; font-size: 1.2rem;"></i>
+            <i class="fa-solid fa-square-rss" style="opacity: 0.3;"></i>
+        </div>
+    </header>
+
+    <main class="viewport">
+        <section id="view-home" class="view-section active">
+            <div class="glass-card col-8">
+                <span class="card-tag">// PRIMARY_IDENTITY</span>
+                <div style="display: flex; gap: 40px; align-items: flex-start;">
+                    <div style="flex-shrink: 0;">
+                        <img src="assets/corv.png" class="brand-logo"
+                            style="width: 160px; border: 1px solid var(--border-glow); padding: 15px;">
+                    </div>
+                    <div>
+                        <h2 style="font-family: 'Syncopate'; font-size: 3.5rem; line-height: 0.9; margin-bottom: 20px;">
+                            CORVX</h2>
+                        <p style="opacity: 0.6; line-height: 1.8; max-width: 450px;">Digital architect and athlete.
+                            Exploring the intersection of underground aesthetics and high-performance gaming.</p>
+                        <div style="display: flex; gap: 20px; margin-top: 30px;">
+                            <a href="https://youtube.com/@corvxwtw" class="social-link"><i
+                                    class="fa-brands fa-youtube"></i></a>
+                            <a href="https://twitch.tv/corvxwtw" class="social-link"><i
+                                    class="fa-brands fa-twitch"></i></a>
+                            <a href="https://x.com/corvxwtw" class="social-link"><i
+                                    class="fa-brands fa-x-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card col-4">
+                <span class="card-tag">// SYSTEM_REPORTS</span>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <div
+                        style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(128,128,128,0.1); padding-bottom: 10px;">
+                        <span style="opacity: 0.4; font-size: 0.7rem;">STATUS</span>
+                        <span style="font-weight: 700; font-size: 0.7rem; color: #00ff88;">[ ONLINE ]</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; border-bottom: 1px solid rgba(128,128,128,0.1); padding-bottom: 10px;">
+                        <span style="opacity: 0.4; font-size: 0.7rem;">F/A_STATUS</span>
+                        <span style="font-weight: 700; font-size: 0.7rem;">ACTIVE_COMP</span>
+                    </div>
+                    <a href="https://fortnitetracker.com/profile/all/washed%20fs%20%e3%82%b7" target="_blank"
+                        class="tracker-btn"
+                        style="margin-top: 15px; text-align: center; padding: 12px; font-weight: 900; text-decoration: none; font-size: 0.6rem; letter-spacing: 2px;">SYNC_TRACKER_DATA</a>
+                </div>
+            </div>
+
+            <div class="glass-card col-12">
+                <span class="card-tag">// COMPETITIVE_RESUME</span>
+                <div style="display: flex; gap: 40px; align-items: center;">
+                    <img src="assets/Screenshot-2025-12-31-225333.png"
+                        style="width: 250px; border: 1px solid var(--border-glow);">
+                    <div>
+                        <h3 style="font-family: 'Syncopate'; margin-bottom: 15px;">ACHIEVEMENTS_LOG</h3>
+                        <p style="opacity: 0.5; margin-bottom: 25px;">Verified competitive history and skill analytics
+                            for esports organizations.</p>
+                        <a href="https://docs.google.com/document/d/14T5BN-rHwo5DeOaK8Nh5VDipeazraI6CPps3qZAHnuo/edit?usp=sharing"
+                            target="_blank"
+                            style="border: 1px solid var(--accent); color: var(--accent); padding: 12px 30px; text-decoration: none; font-size: 0.7rem; font-weight: 700;">DOWNLOAD_REPORTS</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-media" class="view-section">
+            <div class="glass-card col-6">
+                <span class="card-tag">BROADCAST // YOUTUBE</span>
+                <div class="embed-wrapper">
+                    <iframe src="https://www.youtube.com/embed/azjIaHigkoc"></iframe>
+                </div>
+            </div>
+            <div class="glass-card col-6">
+                <span class="card-tag">BROADCAST // TWITCH</span>
+                <div class="embed-wrapper">
+                    <iframe
+                        src="https://player.twitch.tv/?channel=corvxwtw&parent=localhost&parent=127.0.0.1&autoplay=false"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-gear" class="view-section">
+            <div class="glass-card col-4 asset-box">
+                <span class="card-tag">HARDWARE_01</span>
+                <img src="assets/images-1.jpg">
+                <div style="margin-top: 20px;">
+                    <p style="font-weight: 700; letter-spacing: 1px;">SUPERLIGHT 2</p>
+                    <p style="opacity: 0.4; font-size: 0.7rem;">1600 DPI // 1.5% SENS</p>
+                </div>
+            </div>
+            <div class="glass-card col-4 asset-box">
+                <span class="card-tag">HARDWARE_02</span>
+                <img src="assets/apex-pro-tkl-wl-img-buy-01.webp">
+                <div style="margin-top: 20px;">
+                    <p style="font-weight: 700; letter-spacing: 1px;">APEX PRO TKL</p>
+                    <p style="opacity: 0.4; font-size: 0.7rem;">OMNIPOINT // 0.1 ACTUATION</p>
+                </div>
+            </div>
+            <div class="glass-card col-4 asset-box">
+                <span class="card-tag">SENS_ANALYTICS</span>
+                <img src="assets/Screenshot-2026-02-19-173016.png">
+                <div style="margin-top: 20px;">
+                    <p style="font-weight: 700; letter-spacing: 1px;">TARGETING: 55.55</p>
+                    <p style="opacity: 0.4; font-size: 0.7rem;">X: 3% // Y: 3%</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-circle" class="view-section">
+            <div class="glass-card col-12">
+                <span class="card-tag">fg</span>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+
+                    <a href="https://keyzzilla.com" class="operator-card"
+                        style="text-decoration: none; color: inherit;">
+                        <div class="asset-box"
+                            style="text-align: center; padding: 20px; border: 1px solid var(--border-glow); background: rgba(128,128,128,0.02);">
+                            <img src="assets/keyzz.jpg"
+                                style="height: 100px; width: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto; border: 2px solid var(--accent);">
+                            <p
+                                style="margin-top: 15px; font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 2px;">
+                                keyzz</p>
+                            <p style="opacity: 0.4; font-size: 0.5rem; margin-top: 5px;">[ VIEW_PROFILE ]</p>
+                        </div>
+                    </a>
+
+                    <a href="https://ryanpc.org" class="operator-card" style="text-decoration: none; color: inherit;">
+                        <div class="asset-box"
+                            style="text-align: center; padding: 20px; border: 1px solid var(--border-glow); background: rgba(128,128,128,0.02);">
+                            <img src="assets/ryan.png"
+                                style="height: 100px; width: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto; border: 2px solid var(--accent);">
+                            <p
+                                style="margin-top: 15px; font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 2px;">
+                                ryan</p>
+                            <p style="opacity: 0.4; font-size: 0.5rem; margin-top: 5px;">[ VIEW_PROFILE ]</p>
+                        </div>
+                    </a>
+
+                    <a href="https://wyind.dev" class="operator-card" style="text-decoration: none; color: inherit;">
+                        <div class="asset-box"
+                            style="text-align: center; padding: 20px; border: 1px solid var(--border-glow); background: rgba(128,128,128,0.02);">
+                            <img src="assets/wyind.jpeg"
+                                style="height: 100px; width: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto; border: 2px solid var(--accent);">
+                            <p
+                                style="margin-top: 15px; font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 2px;">
+                                wyind</p>
+                            <p style="opacity: 0.4; font-size: 0.5rem; margin-top: 5px;">[ VIEW_PROFILE ]</p>
+                        </div>
+                    </a>
+
+                    <a href="https://www.tiktok.com/@dominic_andrijasevic" class="operator-card"
+                        style="text-decoration: none; color: inherit;">
+                        <div class="asset-box"
+                            style="text-align: center; padding: 20px; border: 1px solid var(--border-glow); background: rgba(128,128,128,0.02);">
+                            <img src="assets/dom.jpeg"
+                                style="height: 100px; width: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto; border: 2px solid var(--accent);">
+                            <p
+                                style="margin-top: 15px; font-family: 'Syncopate'; font-size: 0.6rem; letter-spacing: 2px;">
+                                dominic</p>
+                            <p style="opacity: 0.4; font-size: 0.5rem; margin-top: 5px;">[ VIEW_PROFILE ]</p>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+        <div class="player-pill">
+            <div class="track-meta">
+                <span style="opacity: 0.1;">PLAYING:</span>
+                <span id="track-name">STANDBY</span>
+            </div>
+
+            <div class="audio-btns">
+                <i class="fa-solid fa-backward" onclick="prevTrack()"></i>
+                <i class="fa-solid fa-play" id="play-btn" onclick="togglePlay()"></i>
+                <i class="fa-solid fa-forward" onclick="nextTrack()"></i>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <span id="time-val" style="font-family: 'JetBrains Mono'; font-size: 0.7rem; opacity: 0.4;">00:00</span>
+                <input type="range" id="vol-slider" min="0" max="1" step="0.01" value="0.15"
+                    style="width: 80px; accent-color: var(--accent);">
+            </div>
+        </div>
+
+        <div id="settingsOverlay" class="settings-overlay" onclick="closeSettings(event)">
+            <div class="settings-panel">
+                <h3
+                    style="font-family: 'Syncopate'; margin-bottom: 25px; border-bottom: 1px solid var(--border-glow); padding-bottom: 15px;">
+                    SYSTEM_CONFIG</h3>
+
+                <div class="setting-group">
+                    <label>LIGHT_THEME</label>
+                    <label class="switch">
+                        <input type="checkbox" id="themeSwitch" onchange="updateSettings()">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <label>CRT_ANIMATION</label>
+                    <label class="switch">
+                        <input type="checkbox" id="animationSwitch" onchange="updateSettings()" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <label>BG_EFFECTS</label>
+                    <label class="switch">
+                        <input type="checkbox" id="bgSwitch" onchange="updateSettings()" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <label>BG_DESIGN</label>
+                    <select id="bgDesign" onchange="updateSettings()">
+                        <option value="vortex">VORTEX</option>
+                        <option value="grid">GRID_ONLY</option>
+                        <option value="solid">SOLID</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label>PRIMARY_COLOR</label>
+                    <input type="color" id="primaryColor" value="#ffffff" onchange="updateSettings()">
+                </div>
+
+                <div class="setting-group">
+                    <label>SECONDARY_COLOR</label>
+                    <input type="color" id="secondaryColor" value="#000000" onchange="updateSettings()">
+                </div>
+
+                <button onclick="toggleSettingsPanel()"
+                    style="width: 100%; margin-top: 20px; padding: 10px; background: transparent; border: 1px solid var(--accent); color: var(--text-primary); cursor: pointer; font-weight: 700;">CLOSE_CONFIG</button>
+                <div
+                    style="text-align: center; margin-top: 15px; font-size: 0.6rem; opacity: 0.5; font-family: 'JetBrains Mono', monospace;">
+                    made by <a href="https://keyzzilla.com"
+                        style="color: inherit; text-decoration: none;">@keyzzilla</a>
+                </div>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+</body>
+
+</html>
